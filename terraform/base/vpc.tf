@@ -14,8 +14,8 @@ resource "aws_vpc" "main" {
 
 resource "aws_subnet" "public_1a" {
   vpc_id          = aws_vpc.main.id
-  cidr_block      = cidrsubnet(aws_vpc.main.cidr_block, 16, 0)
-  ipv6_cidr_block = cidrsubnet(aws_vpc.main.ipv6_cidr_block, 16, 0)
+  cidr_block      = cidrsubnet(aws_vpc.main.cidr_block, 10, 0)
+  ipv6_cidr_block = cidrsubnet(aws_vpc.main.ipv6_cidr_block, 64, 0)
 
   map_public_ip_on_launch         = true
   availability_zone               = "ap-northeast-1a"
@@ -29,8 +29,8 @@ resource "aws_subnet" "public_1a" {
 
 resource "aws_subnet" "public_1b" {
   vpc_id          = aws_vpc.main.id
-  cidr_block      = cidrsubnet(aws_vpc.main.cidr_block, 16, 1)
-  ipv6_cidr_block = cidrsubnet(aws_vpc.main.ipv6_cidr_block, 16, 1)
+  cidr_block      = cidrsubnet(aws_vpc.main.cidr_block, 10, 1)
+  ipv6_cidr_block = cidrsubnet(aws_vpc.main.ipv6_cidr_block, 64, 1)
 
   map_public_ip_on_launch         = true
   availability_zone               = "ap-northeast-1b"
@@ -44,8 +44,8 @@ resource "aws_subnet" "public_1b" {
 
 resource "aws_subnet" "public_1c" {
   vpc_id          = aws_vpc.main.id
-  cidr_block      = cidrsubnet(aws_vpc.main.cidr_block, 16, 2)
-  ipv6_cidr_block = cidrsubnet(aws_vpc.main.ipv6_cidr_block, 16, 2)
+  cidr_block      = cidrsubnet(aws_vpc.main.cidr_block, 10, 2)
+  ipv6_cidr_block = cidrsubnet(aws_vpc.main.ipv6_cidr_block, 64, 2)
 
   map_public_ip_on_launch         = true
   availability_zone               = "ap-northeast-1c"
@@ -59,8 +59,8 @@ resource "aws_subnet" "public_1c" {
 
 resource "aws_subnet" "private_1a" {
   vpc_id          = aws_vpc.main.id
-  cidr_block      = cidrsubnet(aws_vpc.main.cidr_block, 16, 3)
-  ipv6_cidr_block = cidrsubnet(aws_vpc.main.ipv6_cidr_block, 16, 3)
+  cidr_block      = cidrsubnet(aws_vpc.main.cidr_block, 10, 3)
+  ipv6_cidr_block = cidrsubnet(aws_vpc.main.ipv6_cidr_block, 64, 3)
 
   map_public_ip_on_launch         = false
   availability_zone               = "ap-northeast-1a"
@@ -74,8 +74,8 @@ resource "aws_subnet" "private_1a" {
 
 resource "aws_subnet" "private_1b" {
   vpc_id          = aws_vpc.main.id
-  cidr_block      = cidrsubnet(aws_vpc.main.cidr_block, 16, 4)
-  ipv6_cidr_block = cidrsubnet(aws_vpc.main.ipv6_cidr_block, 16, 4)
+  cidr_block      = cidrsubnet(aws_vpc.main.cidr_block, 10, 4)
+  ipv6_cidr_block = cidrsubnet(aws_vpc.main.ipv6_cidr_block, 64, 4)
 
   map_public_ip_on_launch         = false
   availability_zone               = "ap-northeast-1b"
@@ -89,8 +89,8 @@ resource "aws_subnet" "private_1b" {
 
 resource "aws_subnet" "private_1c" {
   vpc_id          = aws_vpc.main.id
-  cidr_block      = cidrsubnet(aws_vpc.main.cidr_block, 16, 5)
-  ipv6_cidr_block = cidrsubnet(aws_vpc.main.ipv6_cidr_block, 16, 5)
+  cidr_block      = cidrsubnet(aws_vpc.main.cidr_block, 10, 5)
+  ipv6_cidr_block = cidrsubnet(aws_vpc.main.ipv6_cidr_block, 64, 5)
 
   map_public_ip_on_launch         = false
   availability_zone               = "ap-northeast-1c"

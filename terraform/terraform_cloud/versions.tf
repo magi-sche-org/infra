@@ -3,8 +3,8 @@ terraform {
     organization = "magische"
 
     workspaces {
-      project = "magische"
-      name    = "magische_infra_terraform_cloud"
+      # project = "magische"
+      name = "magische_infra_terraform_cloud"
     }
   }
   required_providers {

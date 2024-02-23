@@ -3,10 +3,10 @@ resource "tfe_organization" "magische_organization" {
   email = "spritz.pickle-08@icloud.com"
 }
 
-# resource "tfe_project" "magische_project" {
-#   name         = "magische"
-#   organization = tfe_organization.magische_organization.name
-# }
+resource "tfe_project" "magische_project" {
+  name         = "magische"
+  organization = tfe_organization.magische_organization.name
+}
 
 variable "GITHUB_APP_INSTALLATION_ID" {
   type = string
@@ -15,8 +15,8 @@ variable "GITHUB_APP_INSTALLATION_ID" {
 resource "tfe_workspace" "magische_infra_terraform_cloud" {
   name         = "magische_infra_terraform_cloud"
   organization = tfe_organization.magische_organization.name
-  # project_id   = tfe_project.magische_project.id
-  auto_apply = true
+  project_id   = tfe_project.magische_project.id
+  auto_apply   = true
   vcs_repo {
     identifier                 = "magi-sche-org/magische-infra"
     branch                     = "main"

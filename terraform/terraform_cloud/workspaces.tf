@@ -1,3 +1,12 @@
+module "module_magische_base" {
+  source                     = "./modules"
+  organization_name          = tfe_organization.magische_organization.name
+  project_id                 = tfe_project.magische_project.id
+  GITHUB_APP_INSTALLATION_ID = var.GITHUB_APP_INSTALLATION_ID
+  workspace_name             = "magische_infra_base"
+  working_directory          = "terraform/base"
+}
+
 module "module_magische_dev_frontend" {
   source                     = "./modules"
   organization_name          = tfe_organization.magische_organization.name

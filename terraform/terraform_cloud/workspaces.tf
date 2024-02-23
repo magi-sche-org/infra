@@ -1,4 +1,4 @@
-module "module_magische_dev_frontend" {
+module "module_magische_base" {
   source                     = "./modules"
   organization_name          = tfe_organization.magische_organization.name
   project_id                 = tfe_project.magische_project.id

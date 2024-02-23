@@ -40,3 +40,17 @@ resource "tfe_workspace" "magische_infra_terraform_cloud" {
 # resource "tfe_workspace_settings" "magische_infra_terraform_cloud" {
 #   workspace_id = tfe_workspace.magische_infra_terraform_cloud.id
 # }
+
+resource "tfe_variable" "tfc_aws_provider_auth" {
+  key          = "TFC_AWS_PROVIDER_AUTH"
+  value        = true
+  category     = "env"
+  workspace_id = tfe_workspace.magische_infra_terraform_cloud.id
+}
+
+resource "tfe_variable" "tfc_aws_run_role_arn" {
+  key          = "TFC_AWS_RUN_ROLE_ARN"
+  value        = "arn:aws:iam::905418376731:oidc-provider/app.terraform.io"
+  category     = "env"
+  workspace_id = tfe_workspace.magische_infra_terraform_cloud.id
+}

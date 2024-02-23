@@ -50,7 +50,7 @@ resource "tfe_variable" "tfc_aws_provider_auth" {
 
 resource "tfe_variable" "tfc_aws_run_role_arn" {
   key          = "TFC_AWS_RUN_ROLE_ARN"
-  value        = "arn:aws:iam::905418376731:oidc-provider/app.terraform.io"
+  value        = "arn:aws:iam::905418376731:role/terraform_cloud_oidc_role"
   category     = "env"
   workspace_id = tfe_workspace.magische_infra_terraform_cloud.id
 }

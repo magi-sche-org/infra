@@ -12,8 +12,8 @@ resource "aws_ecs_service" "server" {
   name            = "magische-${var.environment}-${var.service}-server"
   cluster         = aws_ecs_cluster.main.id
   task_definition = aws_ecs_task_definition.server.arn
-  launch_type     = "FARGATE"
-  desired_count   = 1
+  # launch_type     = "FARGATE"
+  desired_count = 1
   network_configuration {
     subnets = var.private_subnet_ids[*]
     security_groups = [

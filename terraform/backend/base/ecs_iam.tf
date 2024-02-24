@@ -26,11 +26,12 @@ resource "aws_iam_policy" "server_task" {
   policy = jsonencode({
     Version = "2012-10-17",
     Statement = [
-      #   {
-      #     Action   = ["s3:GetObject", "s3:PutObject"]
-      #     Effect   = "Allow"
-      #     Resource = "*"
-      #   },
+      # とりあえず
+      {
+        Action   = ["s3:GetObject", "s3:PutObject"]
+        Effect   = "Allow"
+        Resource = "*"
+      },
     ],
   })
 
@@ -62,11 +63,12 @@ resource "aws_iam_policy" "server_task_exec" {
   policy = jsonencode({
     Version = "2012-10-17",
     Statement = [
-      #   {
-      #     Action   = ["s3:GetObject", "s3:PutObject"]
-      #     Effect   = "Allow"
-      #     Resource = "*"
-      #   },
+      # とりあえず
+      {
+        Action   = ["s3:GetObject", "s3:PutObject"]
+        Effect   = "Allow"
+        Resource = "*"
+      },
     ],
   })
 

@@ -45,11 +45,12 @@ resource "aws_route53_record" "cert_validation_tokyo" {
     }
   }
 
-  zone_id = each.value.zone_id
-  name    = each.value.name
-  type    = each.value.type
-  records = [each.value.record]
-  ttl     = 60
+  zone_id         = each.value.zone_id
+  name            = each.value.name
+  type            = each.value.type
+  records         = [each.value.record]
+  ttl             = 60
+  allow_overwrite = true
 }
 
 resource "aws_route53_record" "cert_validation_virginia" {
@@ -63,11 +64,12 @@ resource "aws_route53_record" "cert_validation_virginia" {
     }
   }
 
-  zone_id = each.value.zone_id
-  name    = each.value.name
-  type    = each.value.type
-  records = [each.value.record]
-  ttl     = 60
+  zone_id         = each.value.zone_id
+  name            = each.value.name
+  type            = each.value.type
+  records         = [each.value.record]
+  ttl             = 60
+  allow_overwrite = true
 }
 
 resource "aws_acm_certificate_validation" "magische_net_tokyo" {

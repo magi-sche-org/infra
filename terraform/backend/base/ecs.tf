@@ -17,7 +17,7 @@ resource "aws_ecs_service" "server" {
   network_configuration {
     subnets = var.private_subnet_ids[*]
     security_groups = [
-      aws_security_group.main.id,
+      aws_security_group.server.id,
     ]
   }
 
@@ -58,8 +58,12 @@ resource "aws_ecs_task_definition" "server" {
   requires_compatibilities = ["FARGATE"]
   cpu                      = "256"
   memory                   = "512"
-  execution_role_arn       = aws_iam_role.ecs_execution_role.arn
-  task_role_arn            = aws_iam_role.ecs_task_role.arn
+  execution_role_arn       = aws_iam_role.server_task_exec.arn
+  task_role_arn            = aws_iam_role.server_task.arn
+  runtime_platform {
+    operating_system_family = "LINUX"
+    cpu_architecture        = "ARM64"
+  }
   container_definitions = jsonencode([
     {
       name  = "magische-${var.environment}-${var.service}-server"

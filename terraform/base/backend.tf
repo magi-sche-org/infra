@@ -20,8 +20,8 @@ terraform {
 }
 
 provider "aws" {
-  region  = "ap-northeast-1"
-  profile = "magische"
+  region = "ap-northeast-1"
+  # profile = "magische"
 }
 # provider "aws" {
 #   alias   = "virginia"

@@ -15,7 +15,7 @@ resource "aws_ecs_service" "server" {
   # launch_type     = "FARGATE"
   desired_count = 1
   network_configuration {
-    subnets = var.private_subnet_ids[*]
+    subnets = var.public_subnet_ids[*]
     security_groups = [
       aws_security_group.server.id,
     ]

@@ -21,10 +21,10 @@ terraform {
 
 provider "aws" {
   region = "ap-northeast-1"
-  # profile = "magische"
 }
-# provider "aws" {
-#   alias   = "virginia"
-#   profile = "magische"
-#   region  = "us-east-1"
-# }
+provider "aws" {
+  alias  = "virginia"
+  region = "us-east-1"
+}
+
+data "aws_caller_identity" "current" {}

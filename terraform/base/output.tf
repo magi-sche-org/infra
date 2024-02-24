@@ -32,6 +32,9 @@ output "lb_arn" {
 output "lb_listener_arn" {
   value = aws_lb_listener.main.arn
 }
+output "lb_dns_name" {
+  value = aws_lb.main.dns_name
+}
 output "lb_security_group_id" {
   value = aws_security_group.lb.id
 }

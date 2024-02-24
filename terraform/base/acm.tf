@@ -35,6 +35,7 @@ locals {
   zone_id = aws_route53_zone.magische_net.zone_id
 }
 
+# https://hisuiblog.com/terraform-acm-wild-card-dns-auth-error/
 resource "aws_route53_record" "cert_validation_tokyo" {
   for_each = {
     for dvo in aws_acm_certificate.magische_net_tokyo.domain_validation_options : dvo.domain_name => {

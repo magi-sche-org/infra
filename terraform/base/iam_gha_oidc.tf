@@ -21,3 +21,41 @@ resource "aws_iam_openid_connect_provider" "gha" {
   }
 }
 
+resource "aws_iam_policy" "ecspresso_exec" {
+  name        = "ecspresso-exec"
+  description = "Allow ECS tasks to interact with other AWS services"
+  policy = jsonencode(
+    {
+      Version = "2012-10-17"
+      Statement = [
+        {
+          Sid : "ecspresso",
+          Effect : "Allow",
+          Action : [
+            "application-autoscaling:Describe*",
+            "application-autoscaling:Register*",
+            "codedeploy:BatchGet*",
+            "codedeploy:CreateDeployment",
+            "codedeploy:List*",
+            "ecr:ListImages",
+            "ecs:*",
+            "elasticloadbalancing:DescribeTargetGroups",
+            "iam:GetRole",
+            "iam:PassRole",
+            "logs:GetLogEvents",
+            "secretsmanager:GetSecretValue",
+            "servicediscovery:GetNamespace",
+            "ssm:GetParameter",
+            "sts:AssumeRole",
+          ],
+          "Resource" : "*"
+        }
+      ]
+    }
+  )
+
+  tags = {
+    Name = "ecspresso-exec"
+  }
+}
+

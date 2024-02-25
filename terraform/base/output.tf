@@ -64,3 +64,7 @@ output "prd_acm_certificate_virginia_arn" {
 output "gha_oidc_provider_arn" {
   value = aws_iam_openid_connect_provider.gha.arn
 }
+
+output "ecspresso_exec_policy_arn" {
+  value = aws_iam_policy.ecspresso_exec.arn
+}

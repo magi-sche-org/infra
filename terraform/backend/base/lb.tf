@@ -13,10 +13,11 @@
 #   }
 # }
 resource "aws_lb_target_group" "server" {
-  name     = "magische-${var.environment}-${var.service}-tg"
-  port     = var.server_ecs_config.container_port
-  protocol = "HTTP"
-  vpc_id   = var.vpc_id
+  name        = "magische-${var.environment}-${var.service}-tg"
+  port        = var.server_ecs_config.container_port
+  protocol    = "HTTP"
+  vpc_id      = var.vpc_id
+  target_type = "ip"
 
   health_check {
     # path                = "/health"

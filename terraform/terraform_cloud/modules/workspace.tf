@@ -29,6 +29,10 @@ variable "tfe_token_for_remote_state" {
   description = "use for terraform remote state"
 }
 
+variable "remote_state_consumer_ids" {
+  type = list(string)
+}
+
 resource "tfe_workspace" "magische_infra_terraform_cloud" {
   name         = var.workspace_name
   organization = var.organization_name
@@ -41,6 +45,15 @@ resource "tfe_workspace" "magische_infra_terraform_cloud" {
   }
   working_directory = var.working_directory
   tag_names         = []
+
+  remote_state_consumer_ids = var.remote_state_consumer_ids
+  # remote_state_consumer_ids = [
+  #   module.module_magische_dev_backend.workspace_id,
+  #   module.module_magische_dev_frontend.workspace_id,
+  #   module.module_magische_prd_backend.workspace_id,
+  #   module.module_magische_prd_frontend.workspace_id,
+  # ]
+  # global_remote_state = true
 }
 
 # resource "tfe_workspace_settings" "magische_infra_terraform_cloud" {

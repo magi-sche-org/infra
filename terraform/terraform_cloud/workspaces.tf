@@ -6,6 +6,12 @@ module "module_magische_base" {
   tfe_token_for_remote_state = var.TFE_TOKEN_FOR_REMOTE_STATE
   workspace_name             = "magische_infra_base"
   working_directory          = "terraform/base"
+  remote_state_consumer_ids = [
+    module.module_magische_dev_backend.workspace_id,
+    module.module_magische_dev_frontend.workspace_id,
+    module.module_magische_prd_backend.workspace_id,
+    module.module_magische_prd_frontend.workspace_id,
+  ]
 }
 
 module "module_magische_dev_frontend" {
@@ -16,6 +22,7 @@ module "module_magische_dev_frontend" {
   tfe_token_for_remote_state = var.TFE_TOKEN_FOR_REMOTE_STATE
   workspace_name             = "magische_infra_dev_frontend"
   working_directory          = "terraform/frontend/dev"
+  remote_state_consumer_ids  = []
 }
 
 module "module_magische_dev_backend" {
@@ -26,6 +33,7 @@ module "module_magische_dev_backend" {
   tfe_token_for_remote_state = var.TFE_TOKEN_FOR_REMOTE_STATE
   workspace_name             = "magische_infra_dev_backend"
   working_directory          = "terraform/backend/dev"
+  remote_state_consumer_ids  = []
 }
 
 module "module_magische_prd_frontend" {
@@ -36,6 +44,7 @@ module "module_magische_prd_frontend" {
   tfe_token_for_remote_state = var.TFE_TOKEN_FOR_REMOTE_STATE
   workspace_name             = "magische_infra_prd_frontend"
   working_directory          = "terraform/frontend/prd"
+  remote_state_consumer_ids  = []
 }
 
 module "module_magische_prd_backend" {
@@ -46,5 +55,6 @@ module "module_magische_prd_backend" {
   tfe_token_for_remote_state = var.TFE_TOKEN_FOR_REMOTE_STATE
   workspace_name             = "magische_infra_prd_backend"
   working_directory          = "terraform/backend/prd"
+  remote_state_consumer_ids  = []
 }
 

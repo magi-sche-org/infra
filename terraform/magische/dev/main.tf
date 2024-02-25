@@ -58,7 +58,7 @@ module "base" {
     domain_name            = local.api_domain
     security_group_id      = local.lb_security_group_id
     listener_arn           = local.lb_listener_arn
-    listener_rule_priority = 3000
+    listener_rule_priority = 3100
     acm_certificate_arn    = local.acm_certificate_tokyo_arn
   }
 

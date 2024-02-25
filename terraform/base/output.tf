@@ -25,9 +25,6 @@ output "private_subnet_1c_id" {
 output "private_subnet_1d_id" {
   value = aws_subnet.private_1d.id
 }
-output "route53_magische_net_zone_id" {
-  value = aws_route53_zone.magische_net.id
-}
 output "lb_arn" {
   value = aws_lb.main.arn
 }
@@ -40,6 +37,15 @@ output "lb_dns_name" {
 output "lb_security_group_id" {
   value = aws_security_group.lb.id
 }
+# 同じドメインの時は同じzone_idを使う
+output "dev_route53_zone_id" {
+  value = aws_route53_zone.magische_net.id
+}
+output "prd_route53_zone_id" {
+  value = aws_route53_zone.magische_net.id
+}
+
+# 一つしか作れないlistenerに関連付ける必要があり，baseで作成するしかない
 output "dev_acm_certificate_tokyo_arn" {
   value = module.dev_acm.acm_certificate_tokyo_arn
 }

@@ -147,6 +147,7 @@ resource "aws_ecs_service" "webfront" {
     security_groups = [
       aws_security_group.webfront_server.id
     ]
+    assign_public_ip = true
   }
 
   capacity_provider_strategy {

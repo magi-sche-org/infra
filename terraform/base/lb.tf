@@ -36,6 +36,8 @@ resource "aws_lb_listener" "dev" {
       message_body = "404 Not Found"
     }
   }
+
+  depends_on = [module.dev_acm]
 }
 
 resource "aws_lb_listener" "prd" {
@@ -53,4 +55,6 @@ resource "aws_lb_listener" "prd" {
       message_body = "404 Not Found"
     }
   }
+
+  depends_on = [module.prd_acm]
 }

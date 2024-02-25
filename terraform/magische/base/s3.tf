@@ -1,10 +1,9 @@
 resource "aws_s3_bucket" "lb_logs" {
-  bucket = "magische-${var.environment}-${var.service}-cloudfont-logs"
+  bucket = "magische-${var.env}-cloudfont-logs"
 
   tags = {
-    Name    = "magische-${var.environment}-${var.service}-cloudfont-logs"
-    Service = var.service
-    Env     = var.environment
+    Name = "magische-${var.env}-cloudfont-logs"
+    Env  = var.env
   }
 }
 

@@ -47,11 +47,6 @@ resource "aws_iam_role" "tfc_oidc_role" {
                 "organization:${local.tfc_organization_name}:project:${local.tfc_project_name}:workspace:magische_infra_base:run_phase:*",
                 "organization:${local.tfc_organization_name}:project:${local.tfc_project_name}:workspace:magische_infra_dev:run_phase:*",
                 "organization:${local.tfc_organization_name}:project:${local.tfc_project_name}:workspace:magische_infra_prd:run_phase:*",
-
-                "organization:${local.tfc_organization_name}:project:${local.tfc_project_name}:workspace:magische_infra_dev_frontend:run_phase:*",
-                "organization:${local.tfc_organization_name}:project:${local.tfc_project_name}:workspace:magische_infra_prd_frontend:run_phase:*",
-                "organization:${local.tfc_organization_name}:project:${local.tfc_project_name}:workspace:magische_infra_dev_backend:run_phase:*",
-                "organization:${local.tfc_organization_name}:project:${local.tfc_project_name}:workspace:magische_infra_prd_backend:run_phase:*",
               ]
             }
           }

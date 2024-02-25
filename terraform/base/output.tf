@@ -25,7 +25,9 @@ output "private_subnet_1c_id" {
 output "private_subnet_1d_id" {
   value = aws_subnet.private_1d.id
 }
-
+output "route53_magische_net_zone_id" {
+  value = aws_route53_zone.magische_net.id
+}
 output "lb_arn" {
   value = aws_lb.main.arn
 }

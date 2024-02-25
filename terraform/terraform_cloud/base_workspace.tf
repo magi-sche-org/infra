@@ -30,6 +30,14 @@ resource "tfe_workspace" "magische_infra_terraform_cloud" {
   }
   working_directory = "terraform/terraform_cloud"
   tag_names         = []
+
+  remote_state_consumer_ids = [
+    module.module_magische_dev_backend.workspace_id,
+    module.module_magische_dev_frontend.workspace_id,
+    module.module_magische_prd_backend.workspace_id,
+    module.module_magische_prd_frontend.workspace_id,
+  ]
+  # global_remote_state = true
 }
 
 resource "tfe_workspace_settings" "magische_infra_terraform_cloud" {

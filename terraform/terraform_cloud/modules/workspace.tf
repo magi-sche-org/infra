@@ -68,3 +68,7 @@ resource "tfe_variable" "tfc_aws_run_role_external_id" {
   category     = "env"
   workspace_id = tfe_workspace.magische_infra_terraform_cloud.id
 }
+
+output "workspace_id" {
+  value = tfe_workspace.magische_infra_terraform_cloud.id
+}

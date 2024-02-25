@@ -21,12 +21,12 @@ resource "aws_lb" "main" {
 }
 
 
-resource "aws_lb_listener" "dev" {
+resource "aws_lb_listener" "main" {
   load_balancer_arn = aws_lb.main.arn
   port              = 443
   protocol          = "HTTPS"
   ssl_policy        = "ELBSecurityPolicy-TLS13-1-2-2021-06"
-  certificate_arn   = module.dev_acm.acm_certificate_tokyo_arn
+  # certificate_arn   = module.dev_acm.acm_certificate_tokyo_arn
 
   default_action {
     type = "fixed-response"
@@ -37,24 +37,35 @@ resource "aws_lb_listener" "dev" {
     }
   }
 
-  depends_on = [module.dev_acm.acm_certificate_tokyo_arn]
 }
 
-resource "aws_lb_listener" "prd" {
-  load_balancer_arn = aws_lb.main.arn
-  port              = 443
-  protocol          = "HTTPS"
-  ssl_policy        = "ELBSecurityPolicy-TLS13-1-2-2021-06"
-  certificate_arn   = module.prd_acm.acm_certificate_tokyo_arn
-
-  default_action {
-    type = "fixed-response"
-    fixed_response {
-      content_type = "text/plain"
-      status_code  = "404"
-      message_body = "404 Not Found"
-    }
-  }
-
-  depends_on = [module.prd_acm.acm_certificate_tokyo_arn]
+resource "aws_lb_listener_certificate" "dev" {
+  listener_arn    = aws_lb_listener.main.arn
+  certificate_arn = module.dev_acm.acm_certificate_tokyo_arn
+  depends_on      = [module.dev_acm.acm_certificate_tokyo_arn]
 }
+
+resource "aws_lb_listener_certificate" "prd" {
+  listener_arn    = aws_lb_listener.main.arn
+  certificate_arn = module.prd_acm.acm_certificate_tokyo_arn
+  depends_on      = [module.prd_acm.acm_certificate_tokyo_arn]
+}
+
+# resource "aws_lb_listener" "prd" {
+#   load_balancer_arn = aws_lb.main.arn
+#   port              = 443
+#   protocol          = "HTTPS"
+#   ssl_policy        = "ELBSecurityPolicy-TLS13-1-2-2021-06"
+#   certificate_arn   = module.prd_acm.acm_certificate_tokyo_arn
+
+#   default_action {
+#     type = "fixed-response"
+#     fixed_response {
+#       content_type = "text/plain"
+#       status_code  = "404"
+#       message_body = "404 Not Found"
+#     }
+#   }
+
+#   depends_on = [module.prd_acm.acm_certificate_tokyo_arn]
+# }

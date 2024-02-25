@@ -31,11 +31,8 @@ output "route53_magische_net_zone_id" {
 output "lb_arn" {
   value = aws_lb.main.arn
 }
-output "dev_lb_listener_arn" {
-  value = aws_lb_listener.dev.arn
-}
-output "prd_lb_listener_arn" {
-  value = aws_lb_listener.prd.arn
+output "lb_listener_arn" {
+  value = aws_lb_listener.main.arn
 }
 output "lb_dns_name" {
   value = aws_lb.main.dns_name

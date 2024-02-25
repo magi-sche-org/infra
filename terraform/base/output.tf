@@ -31,8 +31,11 @@ output "route53_magische_net_zone_id" {
 output "lb_arn" {
   value = aws_lb.main.arn
 }
-output "lb_listener_arn" {
-  value = aws_lb_listener.main.arn
+output "dev_lb_listener_arn" {
+  value = aws_lb_listener.dev.arn
+}
+output "prd_lb_listener_arn" {
+  value = aws_lb_listener.prd.arn
 }
 output "lb_dns_name" {
   value = aws_lb.main.dns_name
@@ -40,9 +43,15 @@ output "lb_dns_name" {
 output "lb_security_group_id" {
   value = aws_security_group.lb.id
 }
-output "acm_certificate_tokyo_arn" {
-  value = aws_acm_certificate.magische_net_tokyo.arn
+output "dev_acm_certificate_tokyo_arn" {
+  value = module.dev_acm.acm_certificate_tokyo_arn
 }
-output "acm_certificate_virginia_arn" {
-  value = aws_acm_certificate.magische_net_virginia.arn
+output "dev_acm_certificate_virginia_arn" {
+  value = module.dev_acm.acm_certificate_virginia_arn
+}
+output "prd_acm_certificate_tokyo_arn" {
+  value = module.prd_acm.acm_certificate_tokyo_arn
+}
+output "prd_acm_certificate_virginia_arn" {
+  value = module.prd_acm.acm_certificate_virginia_arn
 }

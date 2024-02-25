@@ -21,12 +21,29 @@ resource "aws_lb" "main" {
 }
 
 
-resource "aws_lb_listener" "main" {
+resource "aws_lb_listener" "dev" {
   load_balancer_arn = aws_lb.main.arn
   port              = 443
   protocol          = "HTTPS"
   ssl_policy        = "ELBSecurityPolicy-TLS13-1-2-2021-06"
-  certificate_arn   = aws_acm_certificate.magische_net_tokyo.arn
+  certificate_arn   = module.dev_acm.acm_certificate_tokyo_arn
+
+  default_action {
+    type = "fixed-response"
+    fixed_response {
+      content_type = "text/plain"
+      status_code  = "404"
+      message_body = "404 Not Found"
+    }
+  }
+}
+
+resource "aws_lb_listener" "prd" {
+  load_balancer_arn = aws_lb.main.arn
+  port              = 443
+  protocol          = "HTTPS"
+  ssl_policy        = "ELBSecurityPolicy-TLS-1-2-2020-10"
+  certificate_arn   = module.prd_acm.acm_certificate_virginia_arn
 
   default_action {
     type = "fixed-response"

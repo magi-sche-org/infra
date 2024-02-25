@@ -53,6 +53,7 @@ resource "aws_cloudfront_distribution" "api" {
 
 resource "aws_cloudfront_cache_policy" "api" {
   name        = "magische-${var.env}-api"
+  comment     = "magische-${var.env}-api"
   default_ttl = var.api_cloudfront_config.default_ttl
   min_ttl     = var.api_cloudfront_config.min_ttl
   max_ttl     = var.api_cloudfront_config.max_ttl
@@ -71,7 +72,8 @@ resource "aws_cloudfront_cache_policy" "api" {
 }
 
 resource "aws_cloudfront_origin_request_policy" "api" {
-  name = "magische-${var.env}-api"
+  name    = "magische-${var.env}-api"
+  comment = "magische-${var.env}-api"
   headers_config {
     header_behavior = "allViewer"
   }
@@ -152,6 +154,7 @@ resource "aws_cloudfront_distribution" "webfront" {
 
 resource "aws_cloudfront_cache_policy" "webfront" {
   name        = "magische-${var.env}-webfront"
+  comment     = "magische-${var.env}-webfront"
   min_ttl     = var.webfront_cloudfront_config.min_ttl
   default_ttl = var.webfront_cloudfront_config.default_ttl
   max_ttl     = var.webfront_cloudfront_config.max_ttl
@@ -170,7 +173,8 @@ resource "aws_cloudfront_cache_policy" "webfront" {
 }
 
 resource "aws_cloudfront_origin_request_policy" "webfront" {
-  name = "magische-${var.env}-webfront"
+  name    = "magische-${var.env}-webfront"
+  comment = "magische-${var.env}-webfront"
   headers_config {
     header_behavior = "none"
   }

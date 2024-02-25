@@ -31,14 +31,16 @@ resource "aws_ecs_service" "server" {
     base              = var.server_ecs_config.capacity_provider.fargate_spot_base
     weight            = var.server_ecs_config.capacity_provider.fargate_spot_weight
   }
-  # load_balancer {
-  #   target_group_arn = aws_lb_target_group.main.arn
-  #   container_name   = "main"
-  #   container_port   = 80
-  # }
-  # depends_on = [
-  #   aws_iam_role_policy_attachment.ecs_execution_role,
-  # ]
+  deployment_circuit_breaker {
+    enable   = true
+    rollback = true
+  }
+  load_balancer {
+    target_group_arn = aws_lb_target_group.server.arn
+    container_name   = "magische-${var.environment}-${var.service}-server"
+    container_port   = var.server_ecs_config.container_port
+  }
+
   lifecycle {
     ignore_changes = [
       desired_count,
@@ -70,10 +72,18 @@ resource "aws_ecs_task_definition" "server" {
       image = "nginx"
       portMappings = [
         {
-          containerPort = 80
-          hostPort      = 80
+          containerPort = var.server_ecs_config.container_port
+          hostPort      = var.server_ecs_config.container_port
         },
       ]
+      logConfiguration = {
+        logDriver = "awslogs"
+        options = {
+          "awslogs-group"         = "magische-${var.environment}-${var.service}-server"
+          "awslogs-region"        = "ap-northeast-1"
+          "awslogs-stream-prefix" = "magische-${var.environment}-${var.service}-server"
+        }
+      }
     },
   ])
   tags = {

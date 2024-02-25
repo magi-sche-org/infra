@@ -29,6 +29,9 @@ resource "aws_ecr_lifecycle_policy" "api" {
           countType   = "imageCountMoreThan",
           countNumber = 10,
         }
+        action = {
+          type = "expire"
+        }
       }
     ]
   })
@@ -46,6 +49,9 @@ resource "aws_ecr_lifecycle_policy" "webfront" {
           tagStatus   = "any",
           countType   = "imageCountMoreThan",
           countNumber = 10,
+        }
+        action = {
+          type = "expire"
         }
       }
     ]

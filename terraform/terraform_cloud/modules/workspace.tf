@@ -64,6 +64,7 @@ resource "tfe_variable" "tfc_aws_run_role_arn" {
 resource "tfe_variable" "tfc_aws_run_role_external_id" {
   key          = "TFC_TOKEN"
   value        = var.tfe_token_for_remote_state
+  sensitive    = true
   category     = "env"
   workspace_id = tfe_workspace.magische_infra_terraform_cloud.id
 }

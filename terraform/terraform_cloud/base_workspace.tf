@@ -12,6 +12,12 @@ variable "GITHUB_APP_INSTALLATION_ID" {
   type = string
 }
 
+variable "TFE_TOKEN_FOR_REMOTE_STATE" {
+  type        = string
+  sensitive   = true
+  description = "use for terraform remote state"
+}
+
 resource "tfe_workspace" "magische_infra_terraform_cloud" {
   name         = "magische_infra_terraform_cloud"
   organization = tfe_organization.magische_organization.name

@@ -17,7 +17,7 @@ resource "aws_cloudfront_distribution" "main" {
   http_version    = "http2and3"
 
   logging_config {
-    bucket          = aws_s3_bucket.lb_logs.bucket
+    bucket          = aws_s3_bucket.lb_logs.bucket_domain_name
     include_cookies = false
     # prefix = "cloudfront"
   }

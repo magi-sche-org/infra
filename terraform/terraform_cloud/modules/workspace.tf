@@ -23,6 +23,12 @@ variable "workspace_name" {
 variable "working_directory" {
   type = string
 }
+variable "tfe_token_for_remote_state" {
+  type        = string
+  sensitive   = true
+  description = "use for terraform remote state"
+}
+
 resource "tfe_workspace" "magische_infra_terraform_cloud" {
   name         = var.workspace_name
   organization = var.organization_name
@@ -51,6 +57,13 @@ resource "tfe_variable" "tfc_aws_provider_auth" {
 resource "tfe_variable" "tfc_aws_run_role_arn" {
   key          = "TFC_AWS_RUN_ROLE_ARN"
   value        = "arn:aws:iam::905418376731:role/terraform_cloud_oidc_role"
+  category     = "env"
+  workspace_id = tfe_workspace.magische_infra_terraform_cloud.id
+}
+
+resource "tfe_variable" "tfc_aws_run_role_external_id" {
+  key          = "TFC_TOKEN"
+  value        = var.tfe_token_for_remote_state
   category     = "env"
   workspace_id = tfe_workspace.magische_infra_terraform_cloud.id
 }

@@ -14,7 +14,6 @@ variable "GITHUB_APP_INSTALLATION_ID" {
 
 variable "TFE_TOKEN_FOR_REMOTE_STATE" {
   type        = string
-  default     = ""
   sensitive   = true
   description = "use for terraform remote state"
 }

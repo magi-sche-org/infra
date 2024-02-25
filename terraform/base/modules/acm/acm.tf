@@ -26,7 +26,7 @@ output "acm_certificate_virginia_arn" {
 
 
 resource "aws_acm_certificate" "tokyo" {
-  domain_name               = var.zone_id
+  domain_name               = var.domain_name
   validation_method         = "DNS"
   subject_alternative_names = var.subject_alternative_names
 
@@ -41,7 +41,7 @@ resource "aws_acm_certificate" "tokyo" {
 
 resource "aws_acm_certificate" "virginia" {
   provider                  = aws.virginia
-  domain_name               = var.zone_id
+  domain_name               = var.domain_name
   validation_method         = "DNS"
   subject_alternative_names = var.subject_alternative_names
 

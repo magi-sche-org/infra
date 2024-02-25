@@ -90,9 +90,9 @@ module "base" {
     }
     capacity_provider = {
       fargate_base        = 1
-      fargate_weight      = 0
+      fargate_weight      = 1
       fargate_spot_base   = 0
-      fargate_spot_weight = 1
+      fargate_spot_weight = 0
     }
   }
   webfront_ecs_config = {
@@ -113,9 +113,9 @@ module "base" {
     }
     capacity_provider = {
       fargate_base        = 1
-      fargate_weight      = 0
+      fargate_weight      = 1
       fargate_spot_base   = 0
-      fargate_spot_weight = 1
+      fargate_spot_weight = 0
     }
   }
 }

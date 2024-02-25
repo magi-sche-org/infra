@@ -1,5 +1,5 @@
 resource "aws_ecr_repository" "api" {
-  name                 = "magische-api"
+  name                 = "magische-${var.env}-api"
   image_tag_mutability = "MUTABLE"
 
   image_scanning_configuration {
@@ -8,7 +8,7 @@ resource "aws_ecr_repository" "api" {
 }
 
 resource "aws_ecr_repository" "webfront" {
-  name                 = "magische-webfront"
+  name                 = "magische-${var.env}-webfront"
   image_tag_mutability = "MUTABLE"
 
   image_scanning_configuration {

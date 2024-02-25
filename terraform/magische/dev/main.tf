@@ -55,7 +55,7 @@ module "base" {
   }
   webfront_lb_config = {
     arn                    = local.lb_arn
-    domain_name            = local.api_domain
+    domain_name            = local.webfront_domain
     security_group_id      = local.lb_security_group_id
     listener_arn           = local.lb_listener_arn
     listener_rule_priority = 3100

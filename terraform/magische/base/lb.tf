@@ -43,6 +43,10 @@ resource "aws_lb_listener_rule" "api" {
       values = [var.api_lb_config.domain_name]
     }
   }
+
+  lifecycle {
+    create_before_destroy = true
+  }
 }
 
 # https://thaim.hatenablog.jp/entry/2021/01/11/004738
@@ -89,5 +93,9 @@ resource "aws_lb_listener_rule" "webfront" {
     host_header {
       values = [var.webfront_lb_config.domain_name]
     }
+  }
+
+  lifecycle {
+    create_before_destroy = true
   }
 }

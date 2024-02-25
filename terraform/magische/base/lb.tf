@@ -7,8 +7,8 @@ resource "aws_lb_target_group" "api" {
   target_type = "ip"
 
   health_check {
-    # path                = "/health"
-    path                = "/"
+    path = "/health"
+    # path                = "/"
     protocol            = "HTTP"
     matcher             = "200"
     interval            = 30

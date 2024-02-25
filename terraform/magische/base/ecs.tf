@@ -74,6 +74,7 @@ resource "aws_ecs_task_definition" "api" {
         {
           containerPort = var.api_ecs_config.container_port
           hostPort      = var.api_ecs_config.host_port
+          protocol      = "tcp"
         },
       ]
       # logConfiguration = {
@@ -200,6 +201,7 @@ resource "aws_ecs_task_definition" "webfront" {
         {
           containerPort = var.webfront_ecs_config.container_port
           hostPort      = var.webfront_ecs_config.host_port
+          protocol      = "tcp"
         },
       ]
       # logConfiguration = {

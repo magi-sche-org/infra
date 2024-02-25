@@ -40,7 +40,7 @@ resource "aws_lb_listener_rule" "api" {
 
   condition {
     host_header {
-      values = [var.api_lb_config.domain_name]
+      values = [var.api_lb_config.client_domain_name]
     }
   }
 
@@ -91,7 +91,7 @@ resource "aws_lb_listener_rule" "webfront" {
 
   condition {
     host_header {
-      values = [var.webfront_lb_config.domain_name]
+      values = [var.webfront_lb_config.client_domain_name]
     }
   }
 

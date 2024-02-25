@@ -105,7 +105,7 @@ resource "aws_appautoscaling_target" "api" {
   min_capacity       = var.api_ecs_config.autoscaling.min_capacity
 }
 resource "aws_appautoscaling_policy" "api_cpu" {
-  name               = "magische-${var.env}-api-server"
+  name               = "magische-${var.env}-api-server-cpu"
   service_namespace  = aws_appautoscaling_target.api.service_namespace
   resource_id        = aws_appautoscaling_target.api.resource_id
   scalable_dimension = aws_appautoscaling_target.api.scalable_dimension
@@ -120,7 +120,7 @@ resource "aws_appautoscaling_policy" "api_cpu" {
   }
 }
 resource "aws_appautoscaling_policy" "api_memory" {
-  name               = "magische-${var.env}-api-server"
+  name               = "magische-${var.env}-api-server-memory"
   service_namespace  = aws_appautoscaling_target.api.service_namespace
   resource_id        = aws_appautoscaling_target.api.resource_id
   scalable_dimension = aws_appautoscaling_target.api.scalable_dimension
@@ -232,7 +232,7 @@ resource "aws_appautoscaling_target" "webfront" {
   min_capacity       = var.webfront_ecs_config.autoscaling.min_capacity
 }
 resource "aws_appautoscaling_policy" "webfront_cpu" {
-  name               = "magische-${var.env}-webfront-server"
+  name               = "magische-${var.env}-webfront-server-cpu"
   service_namespace  = aws_appautoscaling_target.webfront.service_namespace
   resource_id        = aws_appautoscaling_target.webfront.resource_id
   scalable_dimension = aws_appautoscaling_target.webfront.scalable_dimension
@@ -247,7 +247,7 @@ resource "aws_appautoscaling_policy" "webfront_cpu" {
   }
 }
 resource "aws_appautoscaling_policy" "webfront_memory" {
-  name               = "magische-${var.env}-webfront-server"
+  name               = "magische-${var.env}-webfront-server-memory"
   service_namespace  = aws_appautoscaling_target.webfront.service_namespace
   resource_id        = aws_appautoscaling_target.webfront.resource_id
   scalable_dimension = aws_appautoscaling_target.webfront.scalable_dimension

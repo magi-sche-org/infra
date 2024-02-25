@@ -1,6 +1,6 @@
 resource "aws_cloudfront_distribution" "api" {
   origin {
-    domain_name = var.api_lb_config.domain_name
+    domain_name = var.api_lb_config.lb_dns_name
     origin_id   = "magische-${var.env}-api-server"
 
     # cloudfront->lbもhttpsで通信する
@@ -85,7 +85,7 @@ resource "aws_cloudfront_origin_request_policy" "api" {
 
 resource "aws_cloudfront_distribution" "webfront" {
   origin {
-    domain_name = var.webfront_lb_config.domain_name
+    domain_name = var.webfront_lb_config.lb_dns_name
     origin_id   = "magische-${var.env}-webfront-server"
 
     # cloudfront->lbもhttpsで通信する

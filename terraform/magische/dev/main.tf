@@ -47,7 +47,8 @@ module "base" {
   }
   api_lb_config = {
     arn                    = local.lb_arn
-    domain_name            = local.api_domain
+    lb_dns_name            = local.lb_dns_name
+    client_domain_name     = local.api_domain
     security_group_id      = local.lb_security_group_id
     listener_arn           = local.lb_listener_arn
     listener_rule_priority = 3000
@@ -55,7 +56,8 @@ module "base" {
   }
   webfront_lb_config = {
     arn                    = local.lb_arn
-    domain_name            = local.webfront_domain
+    lb_dns_name            = local.lb_dns_name
+    client_domain_name     = local.webfront_domain
     security_group_id      = local.lb_security_group_id
     listener_arn           = local.lb_listener_arn
     listener_rule_priority = 3100

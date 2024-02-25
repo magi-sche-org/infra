@@ -46,7 +46,8 @@ variable "webfront_cloudfront_config" {
 variable "api_lb_config" {
   type = object({
     arn                    = string
-    domain_name            = string
+    lb_dns_name            = string
+    client_domain_name     = string
     security_group_id      = string
     listener_arn           = string
     listener_rule_priority = number
@@ -57,7 +58,8 @@ variable "api_lb_config" {
 variable "webfront_lb_config" {
   type = object({
     arn                    = string
-    domain_name            = string
+    lb_dns_name            = string
+    client_domain_name     = string
     security_group_id      = string
     listener_arn           = string
     listener_rule_priority = number

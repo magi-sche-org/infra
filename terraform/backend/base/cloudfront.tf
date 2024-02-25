@@ -23,7 +23,7 @@ resource "aws_cloudfront_distribution" "main" {
   }
   # default_root_object = "index.html"
 
-  aliases = ["example.com", "api.example.com"]
+  aliases = [var.server_domain]
 
   default_cache_behavior {
     allowed_methods          = ["GET", "HEAD", "OPTIONS", "PUT", "POST", "PATCH", "DELETE"]

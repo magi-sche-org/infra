@@ -88,8 +88,8 @@ module "base" {
   }
   webfront_ecs_config = {
     desired_count    = 1
-    container_port   = 3000
-    host_port        = 3000
+    container_port   = 80
+    host_port        = 80
     cpu_architecture = "ARM64"
     subnet_ids       = local.public_subnet_ids
     autoscaling = {

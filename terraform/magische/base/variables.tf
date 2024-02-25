@@ -2,6 +2,19 @@ variable "env" {
   type = string
 }
 
+# variable "gha_oidc_provider_arn" {
+#   type = string
+# }
+variable "gha_oidc" {
+  type = object({
+    provider_arn = string
+    branch_name  = string
+  })
+}
+variable "ecspresso_exec_policy_arn" {
+  type = string
+}
+
 variable "api_domain" {
   type        = string
   description = "The domain name for the server"

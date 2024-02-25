@@ -26,6 +26,13 @@ module "base" {
 
   env = "dev"
 
+  gha_oidc = {
+    provider_arn = data.terraform_remote_state.base.outputs.gha_oidc_provider_arn
+    branch_name  = "develop"
+  }
+  ecspresso_exec_policy_arn = data.terraform_remote_state.base.outputs.ecspresso_exec_policy_arn
+
+
   api_domain      = local.api_domain
   webfront_domain = local.webfront_domain
 

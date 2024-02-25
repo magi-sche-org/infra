@@ -56,5 +56,5 @@ resource "aws_lb_listener" "prd" {
     }
   }
 
-  depends_on = [module.prd_acm]
+  depends_on = [module.prd_acm.acm_certificate_tokyo_arn]
 }

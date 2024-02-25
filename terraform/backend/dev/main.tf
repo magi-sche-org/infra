@@ -4,7 +4,8 @@ module "base" {
   environment = "dev"
   service     = "backend"
 
-  server_domain = "api.magi-sche.net"
+  server_domain   = "api.dev.magi-sche.net"
+  route53_zone_id = data.terraform_remote_state.base.outputs.route53_magische_net_zone_id
 
   vpc_id = data.terraform_remote_state.base.outputs.vpc_id
 

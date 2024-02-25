@@ -12,8 +12,10 @@
 #     Env     = "${var.environment}"
 #   }
 # }
+
+# https://thaim.hatenablog.jp/entry/2021/01/11/004738
 resource "aws_lb_target_group" "server" {
-  name        = "magische-${var.environment}-${var.service}-tg"
+  name        = "magische-${var.environment}-${var.service}-tg-${substr(uuid(), 0, 6)}"
   port        = var.server_ecs_config.container_port
   protocol    = "HTTP"
   vpc_id      = var.vpc_id
@@ -28,6 +30,11 @@ resource "aws_lb_target_group" "server" {
     timeout             = 5
     healthy_threshold   = 2
     unhealthy_threshold = 2
+  }
+
+  lifecycle {
+    create_before_destroy = true
+    ignore_changes        = [name]
   }
 
   tags = {

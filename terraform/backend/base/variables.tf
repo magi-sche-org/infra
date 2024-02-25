@@ -10,6 +10,9 @@ variable "server_domain" {
   type        = string
   description = "The domain name for the server"
 }
+variable "route53_zone_id" {
+  type = string
+}
 
 
 variable "vpc_id" {

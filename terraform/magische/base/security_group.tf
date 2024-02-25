@@ -11,8 +11,8 @@ resource "aws_security_group" "api_server" {
 resource "aws_security_group_rule" "api_server_ingress_from_lb" {
   security_group_id        = aws_security_group.api_server.id
   type                     = "ingress"
-  from_port                = 80
-  to_port                  = 80
+  from_port                = var.api_ecs_config.container_port
+  to_port                  = var.api_ecs_config.container_port
   protocol                 = "tcp"
   source_security_group_id = var.api_lb_config.security_group_id
 }
@@ -48,8 +48,8 @@ resource "aws_security_group" "webfront_server" {
 resource "aws_security_group_rule" "webfront_server_ingress_from_lb" {
   security_group_id        = aws_security_group.webfront_server.id
   type                     = "ingress"
-  from_port                = 80
-  to_port                  = 80
+  from_port                = var.webfront_ecs_config.container_port
+  to_port                  = var.webfront_ecs_config.container_port
   protocol                 = "tcp"
   source_security_group_id = var.webfront_lb_config.security_group_id
 }

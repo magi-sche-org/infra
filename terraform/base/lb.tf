@@ -37,14 +37,14 @@ resource "aws_lb_listener" "dev" {
     }
   }
 
-  depends_on = [module.dev_acm]
+  depends_on = [module.dev_acm.acm_certificate_tokyo_arn]
 }
 
 resource "aws_lb_listener" "prd" {
   load_balancer_arn = aws_lb.main.arn
   port              = 443
   protocol          = "HTTPS"
-  ssl_policy        = "ELBSecurityPolicy-TLS-1-2-2020-10"
+  ssl_policy        = "ELBSecurityPolicy-TLS13-1-2-2021-06"
   certificate_arn   = module.prd_acm.acm_certificate_tokyo_arn
 
   default_action {

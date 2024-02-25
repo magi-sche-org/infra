@@ -29,7 +29,10 @@ resource "tfe_workspace" "magische_infra_terraform_cloud" {
     github_app_installation_id = var.GITHUB_APP_INSTALLATION_ID
   }
   working_directory = "terraform/terraform_cloud"
-  tag_names         = []
+  remote_state_consumer_ids = [
+    module.module_magische_base.workspace_id,
+  ]
+  tag_names = []
 }
 
 resource "tfe_workspace_settings" "magische_infra_terraform_cloud" {

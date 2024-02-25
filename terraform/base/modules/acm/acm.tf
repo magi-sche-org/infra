@@ -1,3 +1,13 @@
+# https://zenn.dev/link/comments/0c7f9f08c940a6
+terraform {
+  required_providers {
+    aws = {
+      source                = "hashicorp/aws"
+      configuration_aliases = [aws, aws.virginia]
+    }
+  }
+}
+
 variable "zone_id" {
   type = string
 }

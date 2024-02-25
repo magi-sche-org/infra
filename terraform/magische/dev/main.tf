@@ -119,3 +119,10 @@ module "base" {
     }
   }
 }
+
+output "gha_oidc_deploy_api_role_arn" {
+  value = module.base.gha_oidc_deploy_api_role_arn
+}
+output "gha_oidc_deploy_webfront_role_arn" {
+  value = module.base.gha_oidc_deploy_webfront_role_arn
+}

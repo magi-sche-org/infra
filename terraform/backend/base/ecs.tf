@@ -55,8 +55,9 @@ resource "aws_ecs_service" "server" {
 }
 
 resource "aws_ecs_task_definition" "server" {
-  family                   = "magische-${var.environment}-${var.service}-server"
-  network_mode             = "awsvpc"
+  family = "magische-${var.environment}-${var.service}-server"
+  # network_mode             = "awsvpc"
+  network_mode             = "ip"
   requires_compatibilities = ["FARGATE"]
   cpu                      = "256"
   memory                   = "512"

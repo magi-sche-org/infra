@@ -176,7 +176,11 @@ resource "aws_cloudfront_origin_request_policy" "webfront" {
   name    = "magische-${var.env}-webfront"
   comment = "magische-${var.env}-webfront"
   headers_config {
-    header_behavior = "none"
+    header_behavior = "whitelist"
+    headers {
+      items = ["Host"]
+
+    }
   }
   cookies_config {
     cookie_behavior = "none"

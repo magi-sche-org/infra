@@ -28,7 +28,7 @@ resource "aws_iam_role" "gha_oidc_deploy_api" {
               "token.actions.githubusercontent.com:sub" = [
                 "repo:${local.github_owner_name}/backend:ref:refs/heads/${var.gha_oidc.branch_name}",
                 "repo:${local.github_owner_name}/backend:pull_request",
-                # "repo:${local.github_owner_name}/backend:environment:${var.env}",
+                "repo:${local.github_owner_name}/backend:environment:${var.env}",
               ]
             }
           }
@@ -71,7 +71,7 @@ resource "aws_iam_role" "gha_oidc_deploy_webfront" {
               "token.actions.githubusercontent.com:sub" = [
                 "repo:${local.github_owner_name}/frontend:ref:refs/heads/${var.gha_oidc.branch_name}",
                 "repo:${local.github_owner_name}/frontend:pull_request",
-                # "repo:${local.github_owner_name}/frontend:environment:${var.env}",
+                "repo:${local.github_owner_name}/frontend:environment:${var.env}",
               ]
             }
           }

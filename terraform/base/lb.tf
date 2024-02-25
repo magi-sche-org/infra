@@ -43,7 +43,7 @@ resource "aws_lb_listener" "prd" {
   port              = 443
   protocol          = "HTTPS"
   ssl_policy        = "ELBSecurityPolicy-TLS-1-2-2020-10"
-  certificate_arn   = module.prd_acm.acm_certificate_virginia_arn
+  certificate_arn   = module.prd_acm.acm_certificate_tokyo_arn
 
   default_action {
     type = "fixed-response"

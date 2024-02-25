@@ -22,10 +22,10 @@ module "base" {
   lb_arn                       = data.terraform_remote_state.base.outputs.lb_arn
   lb_dns_name                  = data.terraform_remote_state.base.outputs.lb_dns_name
   lb_security_group_id         = data.terraform_remote_state.base.outputs.lb_security_group_id
-  lb_listener_arn              = data.terraform_remote_state.base.outputs.dev_lb_listener_arn
+  lb_listener_arn              = data.terraform_remote_state.base.outputs.lb_listener_arn
   lb_listener_rule_priority    = 3000
-  acm_certificate_tokyo_arn    = data.terraform_remote_state.base.outputs.acm_certificate_tokyo_arn
-  acm_certificate_virginia_arn = data.terraform_remote_state.base.outputs.acm_certificate_virginia_arn
+  acm_certificate_tokyo_arn    = data.terraform_remote_state.base.outputs.dev_acm_certificate_tokyo_arn
+  acm_certificate_virginia_arn = data.terraform_remote_state.base.outputs.dev_acm_certificate_virginia_arn
 
   server_ecs_config = {
     container_port = 80

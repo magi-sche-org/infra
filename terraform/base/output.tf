@@ -58,3 +58,9 @@ output "prd_acm_certificate_tokyo_arn" {
 output "prd_acm_certificate_virginia_arn" {
   value = module.prd_acm.acm_certificate_virginia_arn
 }
+
+
+# oidc
+output "gha_oidc_provider_arn" {
+  value = aws_iam_openid_connect_provider.gha.arn
+}

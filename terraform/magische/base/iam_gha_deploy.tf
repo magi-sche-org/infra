@@ -1,5 +1,5 @@
 locals {
-  github_owner_name = "magische"
+  github_owner_name = "magi-sche-org"
 }
 
 output "gha_oidc_deploy_api_role_arn" {

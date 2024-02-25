@@ -58,7 +58,7 @@ resource "aws_lb_target_group" "webfront" {
   target_type = "ip"
 
   health_check {
-    path                = "/healthz"
+    path                = "/api/healthz"
     protocol            = "HTTP"
     matcher             = "200"
     interval            = 30

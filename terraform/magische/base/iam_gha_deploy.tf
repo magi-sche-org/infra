@@ -46,6 +46,12 @@ resource "aws_iam_role_policy_attachment" "deploy_api_ecspresso_exec" {
   policy_arn = var.ecspresso_exec_policy_arn
 }
 
+# ecr push
+resource "aws_iam_role_policy_attachment" "deploy_api_ecr_dkr" {
+  role       = aws_iam_role.gha_oidc_deploy_api.name
+  policy_arn = "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryPowerUser"
+}
+
 resource "aws_iam_role" "gha_oidc_deploy_webfront" {
   name = "magische-${var.env}-webfront-deploy"
   assume_role_policy = jsonencode(
@@ -79,6 +85,10 @@ resource "aws_iam_role" "gha_oidc_deploy_webfront" {
 resource "aws_iam_role_policy_attachment" "deploy_webfront_ecspresso_exec" {
   role       = aws_iam_role.gha_oidc_deploy_webfront.name
   policy_arn = var.ecspresso_exec_policy_arn
+}
+resource "aws_iam_role_policy_attachment" "deploy_webfront_ecr_dkr" {
+  role       = aws_iam_role.gha_oidc_deploy_webfront.name
+  policy_arn = "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryPowerUser"
 }
 
 

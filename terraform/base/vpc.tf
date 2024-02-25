@@ -169,3 +169,101 @@ resource "aws_route" "public_internet_gateway_ipv6" {
   gateway_id                  = aws_internet_gateway.main.id
   destination_ipv6_cidr_block = "::/0"
 }
+
+# ecr
+resource "aws_security_group" "vpc_endpoint" {
+  name   = "magische-vpc-endpoint"
+  vpc_id = aws_vpc.main.id
+}
+resource "aws_security_group_rule" "vpc_endpoint_ingress_ipv4" {
+  type              = "ingress"
+  from_port         = 443
+  to_port           = 443
+  protocol          = "tcp"
+  security_group_id = aws_security_group.vpc_endpoint.id
+  cidr_blocks       = [aws_vpc.main.cidr_block]
+}
+resource "aws_security_group_rule" "vpc_endpoint_ingress_ipv6" {
+  type              = "ingress"
+  from_port         = 443
+  to_port           = 443
+  protocol          = "tcp"
+  security_group_id = aws_security_group.vpc_endpoint.id
+  ipv6_cidr_blocks  = [aws_vpc.main.ipv6_cidr_block]
+}
+resource "aws_security_group_rule" "vpc_endpoint_egress_ipv4" {
+  type              = "egress"
+  from_port         = 0
+  to_port           = 0
+  protocol          = "-1"
+  security_group_id = aws_security_group.vpc_endpoint.id
+  cidr_blocks       = ["0.0.0.0/0"]
+}
+resource "aws_security_group_rule" "vpc_endpoint_egress_ipv6" {
+  type              = "egress"
+  from_port         = 0
+  to_port           = 0
+  protocol          = "-1"
+  security_group_id = aws_security_group.vpc_endpoint.id
+  ipv6_cidr_blocks  = ["::/0"]
+}
+
+
+resource "aws_vpc_endpoint" "ecr_dkr" {
+  vpc_id = aws_vpc.main.id
+
+  service_name      = "com.amazonaws.ap-northeast-1.ecr.dkr"
+  vpc_endpoint_type = "Interface"
+  subnet_ids = [
+    aws_subnet.private_1a.id,
+    aws_subnet.private_1c.id,
+    aws_subnet.private_1d.id
+  ]
+  private_dns_enabled = true
+  security_group_ids  = [aws_security_group.vpc_endpoint.id]
+
+  tags = {
+    Name = "magische-ecr-dkr-endpoint"
+  }
+}
+resource "aws_vpc_endpoint" "ecr_api" {
+  vpc_id = aws_vpc.main.id
+
+  service_name      = "com.amazonaws.ap-northeast-1.ecr.api"
+  vpc_endpoint_type = "Interface"
+  subnet_ids = [
+    aws_subnet.private_1a.id,
+    aws_subnet.private_1c.id,
+    aws_subnet.private_1d.id
+  ]
+  private_dns_enabled = true
+  security_group_ids  = [aws_security_group.vpc_endpoint.id]
+
+  tags = {
+    Name = "magische-ecr-api-endpoint"
+  }
+}
+resource "aws_vpc_endpoint" "s3" {
+  vpc_id = aws_vpc.main.id
+
+  service_name      = "com.amazonaws.ap-northeast-1.s3"
+  vpc_endpoint_type = "Gateway"
+  route_table_ids   = [aws_route_table.private.id]
+
+  policy = jsonencode({
+    Version = "2012-10-17",
+    Statement = [
+      {
+        Action    = "*"
+        Effect    = "Allow"
+        Principal = "*"
+        Resource  = "*"
+      }
+    ]
+  })
+
+
+  tags = {
+    Name = "magische-s3-endpoint"
+  }
+}

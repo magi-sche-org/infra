@@ -58,7 +58,7 @@ module "base" {
     client_domain_name     = local.api_domain
     security_group_id      = local.lb_security_group_id
     listener_arn           = local.lb_listener_arn
-    listener_rule_priority = 3000
+    listener_rule_priority = 1000
     acm_certificate_arn    = local.acm_certificate_tokyo_arn
   }
   webfront_lb_config = {
@@ -67,7 +67,7 @@ module "base" {
     client_domain_name     = local.webfront_domain
     security_group_id      = local.lb_security_group_id
     listener_arn           = local.lb_listener_arn
-    listener_rule_priority = 3100
+    listener_rule_priority = 1100
     acm_certificate_arn    = local.acm_certificate_tokyo_arn
   }
 

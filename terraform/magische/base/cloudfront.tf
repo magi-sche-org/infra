@@ -49,6 +49,9 @@ resource "aws_cloudfront_distribution" "api" {
     Name = "magische-${var.env}-cloudfront"
     Env  = "${var.env}"
   }
+  depends_on = [
+    aws_route53_record.api,
+  ]
 }
 
 resource "aws_cloudfront_cache_policy" "api" {
@@ -146,6 +149,9 @@ resource "aws_cloudfront_distribution" "webfront" {
       restriction_type = "none"
     }
   }
+  depends_on = [
+    aws_route53_record.webfront,
+  ]
   tags = {
     Name = "magische-${var.env}-cloudfront"
     Env  = "${var.env}"

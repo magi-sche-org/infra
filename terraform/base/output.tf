@@ -39,7 +39,7 @@ output "lb_security_group_id" {
 }
 # 同じドメインの時は同じzone_idを使う
 output "dev_route53_zone_id" {
-  value = aws_route53_zone.magische_net.id
+  value = aws_route53_zone.magische_org.id
 }
 output "prd_route53_zone_id" {
   value = aws_route53_zone.magische_net.id

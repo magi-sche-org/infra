@@ -18,10 +18,10 @@ terraform {
 provider "aws" {
   region = "ap-northeast-1"
 }
-provider "aws" {
-  alias  = "virginia"
-  region = "us-east-1"
-}
+# provider "aws" {
+#   alias  = "virginia"
+#   region = "us-east-1"
+# }
 
 # data.terraform_remote_state.base.outputs.で参照
 data "terraform_remote_state" "base" {

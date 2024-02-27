@@ -64,7 +64,7 @@ variable "api_lb_config" {
     security_group_id      = string
     listener_arn           = string
     listener_rule_priority = number
-    acm_certificate_arn    = string
+    # acm_certificate_arn    = string
   })
   description = "api server向きのALBのrule設定。domain_nameは受け取るHostヘッダーの中身（CloudFrontから透過して来る）"
 }
@@ -76,7 +76,7 @@ variable "webfront_lb_config" {
     security_group_id      = string
     listener_arn           = string
     listener_rule_priority = number
-    acm_certificate_arn    = string
+    # acm_certificate_arn    = string
   })
   description = "webfront server向きのALBのrule設定。domain_nameは受け取るHostヘッダーの中身（CloudFrontから透過して来る）"
 }

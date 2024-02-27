@@ -9,11 +9,11 @@ locals {
     data.terraform_remote_state.base.outputs.private_subnet_1c_id,
     data.terraform_remote_state.base.outputs.private_subnet_1d_id,
   ]
-  # acm_certificate_tokyo_arn    = data.terraform_remote_state.base.outputs.dev_acm_certificate_tokyo_arn
-  # acm_certificate_virginia_arn = data.terraform_remote_state.base.outputs.dev_acm_certificate_virginia_arn
-  route53_zone_id = data.terraform_remote_state.base.outputs.dev_route53_zone_id
-  api_domain      = "api.dev.magi-sche.org"
-  webfront_domain = "dev.magi-sche.org"
+  acm_certificate_tokyo_arn    = data.terraform_remote_state.base.outputs.dev_acm_certificate_tokyo_arn
+  acm_certificate_virginia_arn = data.terraform_remote_state.base.outputs.dev_acm_certificate_virginia_arn
+  route53_zone_id              = data.terraform_remote_state.base.outputs.dev_route53_zone_id
+  api_domain                   = "api.dev.magi-sche.org"
+  webfront_domain              = "dev.magi-sche.org"
 
   lb_arn                    = data.terraform_remote_state.base.outputs.lb_arn
   lb_dns_name               = data.terraform_remote_state.base.outputs.lb_dns_name
@@ -23,17 +23,17 @@ locals {
 }
 module "base" {
   source = "../base"
-  providers = {
-    aws          = aws
-    aws.virginia = aws.virginia
-  }
+  # providers = {
+  #   aws          = aws
+  #   aws.virginia = aws.virginia
+  # }
 
   env = "dev"
 
-  acm_config = {
-    domain_name               = local.webfront_domain
-    subject_alternative_names = [local.api_domain]
-  }
+  # acm_config = {
+  #   domain_name               = local.webfront_domain
+  #   subject_alternative_names = [local.api_domain]
+  # }
 
   gha_oidc = {
     provider_arn = data.terraform_remote_state.base.outputs.gha_oidc_provider_arn
@@ -50,16 +50,16 @@ module "base" {
   vpc_id = data.terraform_remote_state.base.outputs.vpc_id
 
   api_cloudfront_config = {
-    # acm_certificate_arn = local.acm_certificate_virginia_arn
-    min_ttl     = 0
-    default_ttl = 0
-    max_ttl     = 0
+    acm_certificate_arn = local.acm_certificate_virginia_arn
+    min_ttl             = 0
+    default_ttl         = 0
+    max_ttl             = 0
   }
   webfront_cloudfront_config = {
-    # acm_certificate_arn = local.acm_certificate_virginia_arn
-    min_ttl     = 0
-    default_ttl = 900
-    max_ttl     = 3600
+    acm_certificate_arn = local.acm_certificate_virginia_arn
+    min_ttl             = 0
+    default_ttl         = 900
+    max_ttl             = 3600
   }
   api_lb_config = {
     arn                    = local.lb_arn
@@ -79,7 +79,6 @@ module "base" {
     listener_rule_priority = 3100
     # acm_certificate_arn    = local.acm_certificate_tokyo_arn
   }
-
 
   api_ecs_config = {
     desired_count    = 1

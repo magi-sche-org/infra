@@ -12,8 +12,8 @@ locals {
   acm_certificate_tokyo_arn    = data.terraform_remote_state.base.outputs.dev_acm_certificate_tokyo_arn
   acm_certificate_virginia_arn = data.terraform_remote_state.base.outputs.dev_acm_certificate_virginia_arn
   route53_zone_id              = data.terraform_remote_state.base.outputs.dev_route53_zone_id
-  api_domain                   = "api.dev.magi-sche.net"
-  webfront_domain              = "dev.magi-sche.net"
+  api_domain                   = "api.dev.magi-sche.org"
+  webfront_domain              = "dev.magi-sche.org"
 
   lb_arn                    = data.terraform_remote_state.base.outputs.lb_arn
   lb_dns_name               = data.terraform_remote_state.base.outputs.lb_dns_name

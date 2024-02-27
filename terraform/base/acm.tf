@@ -88,9 +88,9 @@ module "dev_acm" {
   source = "./modules/acm"
 
   zone_id     = aws_route53_zone.magische_net.zone_id
-  domain_name = "dev.magi-sche.net"
+  domain_name = "dev.magi-sche.org"
   subject_alternative_names = [
-    "*.dev.magi-sche.net",
+    "*.dev.magi-sche.org",
   ]
 
   providers = {

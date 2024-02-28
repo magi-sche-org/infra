@@ -161,12 +161,12 @@ resource "aws_iam_policy" "webfront_server_task_exec" {
         Effect   = "Allow"
         Resource = "*"
       },
-      # logを出力するために必要
-      {
-        Action   = ["logs:CreateLogStream", "logs:PutLogEvents"]
-        Effect   = "Allow"
-        Resource = "*"
-      },
+      # # logを出力するために必要
+      # {
+      #   Action   = ["logs:CreateLogStream", "logs:PutLogEvents"]
+      #   Effect   = "Allow"
+      #   Resource = "*"
+      # },
     ],
   })
 

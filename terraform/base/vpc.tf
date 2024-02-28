@@ -262,8 +262,22 @@ resource "aws_vpc_endpoint" "s3" {
     ]
   })
 
-
   tags = {
     Name = "magische-s3-endpoint"
+  }
+}
+
+# cloudwatch logs endpoint
+resource "aws_vpc_endpoint" "cloudwatch_logs" {
+  vpc_id = aws_vpc.main.id
+
+  service_name        = "com.amazonaws.ap-northeast-1.logs"
+  vpc_endpoint_type   = "Interface"
+  subnet_ids          = aws_route_table.private.id
+  private_dns_enabled = true
+  security_group_ids  = [aws_security_group.vpc_endpoint.id]
+
+  tags = {
+    Name = "magische-cloudwatch-logs-endpoint"
   }
 }

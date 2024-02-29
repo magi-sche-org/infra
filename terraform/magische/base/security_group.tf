@@ -140,3 +140,22 @@ resource "aws_security_group_rule" "lb_egress_webfront_server" {
 #   protocol                 = "-1"
 #   source_security_group_id = aws_security_group.server.id
 # }
+
+# rds
+resource "aws_security_group" "rds" {
+  name   = "magische-${var.env}-rds"
+  vpc_id = var.vpc_id
+
+  tags = {
+    Name = "magische-${var.env}-rds"
+  }
+}
+# allow ingress from api server
+resource "aws_security_group_rule" "rds_ingress_api_server" {
+  security_group_id        = aws_security_group.rds.id
+  type                     = "ingress"
+  from_port                = var.rds_config.port
+  to_port                  = var.rds_config.port
+  protocol                 = "tcp"
+  source_security_group_id = aws_security_group.api_server.id
+}

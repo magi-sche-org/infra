@@ -121,7 +121,7 @@ module "base" {
   }
 
   rds_config = {
-    family = "auroa-mysql8.0"
+    family = "aurora-mysql8.0"
     type   = "aurora_mysql_serverless_v2"
     port   = 3306
     # https://docs.aws.amazon.com/AmazonRDS/latest/AuroraMySQLReleaseNotes/AuroraMySQL.Updates.30Updates.html

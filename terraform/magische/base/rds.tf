@@ -94,7 +94,7 @@ resource "aws_db_instance" "mysql_standalone" {
   username = random_string.rds_admin_username.result
 
   manage_master_user_password   = true
-  master_user_secret_kms_key_id = aws_kms_key.main.key_id
+  master_user_secret_kms_key_id = aws_kms_key.main.arn
 
   instance_class = var.rds_config.mysql_standalone.instance_class
 
@@ -102,7 +102,7 @@ resource "aws_db_instance" "mysql_standalone" {
   max_allocated_storage = var.rds_config.mysql_standalone.allocated_storage
   storage_type          = var.rds_config.mysql_standalone.storage_type
   storage_encrypted     = true
-  kms_key_id            = aws_kms_key.main.key_id
+  kms_key_id            = aws_kms_key.main.arn
 
   multi_az             = false
   availability_zone    = "ap-northeast-1a"
@@ -211,7 +211,7 @@ resource "aws_rds_cluster" "serverless_v2" {
   master_username = random_string.rds_admin_username.result
   # master_password                 = var.rds_password
   manage_master_user_password   = true
-  master_user_secret_kms_key_id = aws_kms_key.main.key_id
+  master_user_secret_kms_key_id = aws_kms_key.main.arn
 
   // backtrackは使わない
   backtrack_window = 0
@@ -227,7 +227,7 @@ resource "aws_rds_cluster" "serverless_v2" {
 
   # storage
   storage_encrypted = true
-  kms_key_id        = aws_kms_key.main.key_id
+  kms_key_id        = aws_kms_key.main.arn
 
 
   // aurora serverless v2のmax/minの容量を設定

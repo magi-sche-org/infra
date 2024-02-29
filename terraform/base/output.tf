@@ -2,6 +2,14 @@ output "vpc_id" {
   value = aws_vpc.main.id
 }
 
+output "vpc_availability_zones" {
+  value = [
+    aws_subnet.public_1a.availability_zone,
+    aws_subnet.public_1c.availability_zone,
+    aws_subnet.public_1d.availability_zone,
+  ]
+}
+
 output "public_subnet_1a_id" {
   value = aws_subnet.public_1a.id
 }

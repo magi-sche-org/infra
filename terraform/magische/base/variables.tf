@@ -33,6 +33,9 @@ variable "vpc_id" {
   description = "The VPC ID to use for the ECS cluster"
 }
 
+# variable "vpc_availability_zones" {
+#   type = list(string)
+# }
 
 variable "api_cloudfront_config" {
   type = object({
@@ -131,4 +134,34 @@ variable "webfront_ecs_config" {
       fargate_spot_weight = number
     })
   })
+}
+
+variable "rds_config" {
+  type = object({
+    type                    = string # mysql_standalone, aurora_mysql_provisioned, aurora_mysql_serverless_v2
+    family                  = string # aurora-mysql8.0 / mysql8.0
+    port                    = number
+    engine_version          = string # 3/1時点，8.0.35 or 8.0.mysql_aurora.3.05.2
+    database_name           = string
+    subnet_ids              = list(string)
+    availability_zones      = list(string)
+    replica_number          = number
+    backup_retention_period = number
+    backup_window           = string
+    maintenance_window      = string
+    aurora_serverless_v2 = object({
+      min_capacity = number
+      max_capacity = number
+    })
+    mysql_standalone = object({
+      instance_class        = string # db.t4g.microかな
+      allocated_storage     = number
+      max_allocated_storage = number
+      storage_type          = string
+    })
+  })
+  validation {
+    condition     = var.rds_config.type == "mysql_standalone" || var.rds_config.type == "aurora_mysql_serverless_v2" #  || var.rds_config.type == "aurora_mysql_provisioned" #not available
+    error_message = "rds_config.type must be mysql_standalone, aurora_mysql_provisioned, or aurora_mysql_serverless"
+  }
 }

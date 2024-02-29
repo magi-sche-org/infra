@@ -9,6 +9,7 @@ locals {
     data.terraform_remote_state.base.outputs.private_subnet_1c_id,
     data.terraform_remote_state.base.outputs.private_subnet_1d_id,
   ]
+  availability_zones           = data.terraform_remote_state.base.outputs.vpc_availability_zones
   acm_certificate_tokyo_arn    = data.terraform_remote_state.base.outputs.dev_acm_certificate_tokyo_arn
   acm_certificate_virginia_arn = data.terraform_remote_state.base.outputs.dev_acm_certificate_virginia_arn
   route53_zone_id              = data.terraform_remote_state.base.outputs.dev_route53_zone_id
@@ -48,6 +49,7 @@ module "base" {
   route53_zone_id = local.route53_zone_id
 
   vpc_id = data.terraform_remote_state.base.outputs.vpc_id
+  # vpc_availability_zones = local.availability_zones
 
   api_cloudfront_config = {
     acm_certificate_arn = local.acm_certificate_virginia_arn
@@ -124,6 +126,37 @@ module "base" {
       fargate_weight      = 1
       fargate_spot_base   = 0
       fargate_spot_weight = 0
+    }
+  }
+
+  rds_config = {
+    type = "mysql_standalone"
+    # family = "auroa-mysql8.0"
+    family = "mysql8.0"
+    port   = 3306
+    # https://docs.aws.amazon.com/AmazonRDS/latest/AuroraMySQLReleaseNotes/AuroraMySQL.Updates.30Updates.html
+    # engine_version          = "8.0.mysql_aurora.3.05.2"
+    engine_version          = "8.0.35"
+    database_name           = "magische"
+    availability_zones      = local.availability_zones
+    subnet_ids              = local.private_subnet_ids
+    replica_number          = 0
+    backup_retention_period = 3
+    # JSTで03:00-04:00なのでUTCで18:00-19:00
+    backup_window = "18:00-19:00"
+    # JSTで月曜の02:00-03:00なのでUTCで日曜の17:00-18:00
+    maintenance_window   = "Sun:17:00-Sun:18:00"
+    aurora_serverless_v2 = null
+    # aurora_serverless_v2 = {
+    #   min_capacity = 0.5
+    #   max_capacity = 1
+    # }
+    # mysql_standalone = null
+    mysql_standalone = {
+      instance_class        = "db.t4g.micro"
+      allocated_storage     = 20
+      max_allocated_storage = 50
+      storage_type          = "gp2"
     }
   }
 }

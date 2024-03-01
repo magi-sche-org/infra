@@ -271,7 +271,7 @@ resource "aws_rds_cluster_instance" "serverless_v2" {
   // serverlessを指定
   instance_class             = "db.serverless"
   db_subnet_group_name       = aws_rds_cluster.serverless_v2[0].db_subnet_group_name
-  db_parameter_group_name    = aws_rds_cluster.serverless_v2[0].db_cluster_parameter_group_name
+  db_parameter_group_name    = aws_rds_cluster_parameter_group.serverless_v2[0].name
   publicly_accessible        = false
   auto_minor_version_upgrade = false
 

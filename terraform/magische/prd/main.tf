@@ -171,3 +171,7 @@ output "rds_db_name" {
 output "rds_port" {
   value = module.base.rds_port
 }
+
+output "api_secret_key_arn" {
+  value = module.base.api_secret_key_arn
+}

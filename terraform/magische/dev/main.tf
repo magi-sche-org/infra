@@ -179,5 +179,5 @@ output "rds_endpoint" {
 }
 
 output "rds_db_name" {
-  value = module.base.rds_config.database_name
+  value = module.base.rds_config.rds_db_name
 }

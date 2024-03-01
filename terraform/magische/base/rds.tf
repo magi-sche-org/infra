@@ -105,7 +105,6 @@ resource "aws_db_instance" "mysql_standalone" {
   kms_key_id            = aws_kms_key.main.arn
 
   multi_az             = false
-  availability_zone    = "ap-northeast-1a"
   db_subnet_group_name = aws_db_subnet_group.main.name
   vpc_security_group_ids = [
     aws_security_group.rds.id,

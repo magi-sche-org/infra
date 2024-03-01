@@ -174,6 +174,9 @@ resource "aws_route" "public_internet_gateway_ipv6" {
 resource "aws_security_group" "vpc_endpoint" {
   name   = "magische-vpc-endpoint"
   vpc_id = aws_vpc.main.id
+  tags = {
+    Name = "magische-vpc-endpoint"
+  }
 }
 resource "aws_security_group_rule" "vpc_endpoint_ingress_ipv4" {
   type              = "ingress"

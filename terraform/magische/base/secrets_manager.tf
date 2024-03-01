@@ -7,7 +7,7 @@ resource "aws_secretsmanager_secret" "api_server" {
 }
 
 resource "aws_secretsmanager_secret_version" "api_server" {
-  secret_id = aws_secretsmanager_secret.api_secret.id
+  secret_id = aws_secretsmanager_secret.api_server.id
   secret_string = jsonencode({
     # api_secret_key = "please-change-me"
   })

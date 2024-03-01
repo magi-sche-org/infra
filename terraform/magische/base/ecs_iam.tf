@@ -169,9 +169,12 @@ resource "aws_iam_policy" "webfront_server_task_exec" {
       # },
       # secret managerからの値取得
       {
-        Action   = ["secretsmanager:GetSecretValue"]
-        Effect   = "Allow"
-        Resource = aws_secretsmanager_secret.api_server.arn
+        Action = ["secretsmanager:GetSecretValue"]
+        Effect = "Allow"
+        Resource = [
+          aws_secretsmanager_secret.api_server.arn,
+          var.rds_config.type == "aurora_mysql_serverless_v2" ? aws_rds_cluster.serverless_v2[0].master_user_secret[0].secret_arn : aws_db_instance.mysql_standalone[0].master_user_secret[0].secret_arn,
+        ]
       },
       # kms decrypt
       {

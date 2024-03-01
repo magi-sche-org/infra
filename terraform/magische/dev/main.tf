@@ -167,3 +167,13 @@ output "gha_oidc_deploy_api_role_arn" {
 output "gha_oidc_deploy_webfront_role_arn" {
   value = module.base.gha_oidc_deploy_webfront_role_arn
 }
+
+output "rds_admin_username" {
+  value = module.base.rds_admin_username
+}
+output "rds_admin_password_secret_arn" {
+  value = module.base.rds_admin_password_secret_arn
+}
+output "rds_endpoint" {
+  value = module.base.rds_endpoint
+}

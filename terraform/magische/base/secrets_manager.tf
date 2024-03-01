@@ -9,7 +9,11 @@ resource "aws_secretsmanager_secret" "api_server" {
 resource "aws_secretsmanager_secret_version" "api_server" {
   secret_id = aws_secretsmanager_secret.api_server.id
   secret_string = jsonencode({
-    # api_secret_key = "please-change-me"
+    secret_key                    = "please-change-me"
+    oauth_google_client_id        = "please-change-me"
+    oauth_google_client_secret    = "please-change-me"
+    oauth_microsoft_client_id     = "please-change-me"
+    oauth_microsoft_client_secret = "please-change-me"
   })
 }
 

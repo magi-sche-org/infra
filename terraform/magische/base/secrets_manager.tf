@@ -6,7 +6,7 @@ resource "aws_secretsmanager_secret" "api_secret" {
   }
 }
 
-resource "aws_secretsmanager_secret_version" "api_secret_key" {
+resource "aws_secretsmanager_secret_version" "api_secret" {
   secret_id = aws_secretsmanager_secret.api_secret.id
   secret_string = jsonencode({
     # api_secret_key = "please-change-me"

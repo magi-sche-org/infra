@@ -185,6 +185,6 @@ output "rds_port" {
   value = module.base.rds_port
 }
 
-output "api_secret_key_arn" {
+output "api_server_ssm_arn" {
   value = module.base.api_secret_key_arn
 }

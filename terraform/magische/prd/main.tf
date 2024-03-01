@@ -132,7 +132,7 @@ module "base" {
     replica_number          = 0
     backup_retention_period = 3
     # JSTで03:00-04:00なのでUTCで18:00-19:00
-    backup_window = "18:00-19:00"
+    backup_window = "18:30-19:30"
     # JSTで月曜の02:00-03:00なのでUTCで日曜の17:00-18:00
     maintenance_window = "Sun:17:00-Sun:18:00"
     aurora_serverless_v2 = {
@@ -164,4 +164,7 @@ output "rds_admin_password_secret_arn" {
 }
 output "rds_endpoint" {
   value = module.base.rds_endpoint
+}
+output "rds_db_name" {
+  value = module.base.rds_config.database_name
 }

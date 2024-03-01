@@ -159,3 +159,58 @@ resource "aws_security_group_rule" "rds_ingress_api_server" {
   protocol                 = "tcp"
   source_security_group_id = aws_security_group.api_server.id
 }
+
+# bastion
+resource "aws_security_group" "bastion" {
+  name   = "magische-${var.env}-bastion"
+  vpc_id = var.vpc_id
+
+  tags = {
+    Name = "magische-${var.env}-bastion"
+  }
+}
+
+# allow ingress(22)
+resource "aws_security_group_rule" "bastion_ingress_ipv4" {
+  security_group_id = aws_security_group.bastion.id
+  type              = "ingress"
+  from_port         = 22
+  to_port           = 22
+  protocol          = "tcp"
+  cidr_blocks       = ["0.0.0.0/0"]
+}
+resource "aws_security_group_rule" "bastion_ingress_ipv6" {
+  security_group_id = aws_security_group.bastion.id
+  type              = "ingress"
+  from_port         = 22
+  to_port           = 22
+  protocol          = "tcp"
+  cidr_blocks       = ["::/0"]
+}
+
+# allow egress
+resource "aws_security_group_rule" "bastion_egress_ipv4_any" {
+  security_group_id = aws_security_group.bastion.id
+  type              = "egress"
+  from_port         = 0
+  to_port           = 0
+  protocol          = "-1"
+  cidr_blocks       = ["0.0.0.0/0"]
+}
+resource "aws_security_group_rule" "bastion_egress_ipv6_any" {
+  security_group_id = aws_security_group.bastion.id
+  type              = "egress"
+  from_port         = 0
+  to_port           = 0
+  protocol          = "-1"
+  ipv6_cidr_blocks  = ["::/0"]
+}
+
+resource "aws_security_group_rule" "rds_ingress_bastion" {
+  security_group_id        = aws_security_group.rds.id
+  type                     = "ingress"
+  from_port                = var.rds_config.port
+  to_port                  = var.rds_config.port
+  protocol                 = "tcp"
+  source_security_group_id = aws_security_group.bastion.id
+}

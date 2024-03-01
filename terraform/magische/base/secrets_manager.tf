@@ -15,6 +15,9 @@ resource "aws_secretsmanager_secret_version" "api_server" {
     oauth_microsoft_client_id     = "please-change-me"
     oauth_microsoft_client_secret = "please-change-me"
   })
+  lifecycle {
+    ignore_changes = [secret_string]
+  }
 }
 
 output "api_server_ssm_arn" {

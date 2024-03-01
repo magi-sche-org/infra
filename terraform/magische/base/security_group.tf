@@ -185,7 +185,7 @@ resource "aws_security_group_rule" "bastion_ingress_ipv6" {
   from_port         = 22
   to_port           = 22
   protocol          = "tcp"
-  cidr_blocks       = ["::/0"]
+  ipv6_cidr_blocks  = ["::/0"]
 }
 
 # allow egress

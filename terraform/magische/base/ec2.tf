@@ -1,5 +1,5 @@
 resource "aws_key_pair" "bastion" {
-  key_name   = "bastion"
+  key_name   = "bastion-${var.env}"
   public_key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIME4sBu1MKOZ5nn2TG78fOXroUi9JQgqFQy6EKSdK2dM"
 }
 

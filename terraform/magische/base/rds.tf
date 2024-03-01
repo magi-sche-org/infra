@@ -28,6 +28,9 @@ output "rds_endpoint" {
 output "rds_db_name" {
   value = var.rds_config.database_name
 }
+output "rds_port" {
+  value = var.rds_config.port
+}
 
 
 

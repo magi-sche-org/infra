@@ -168,3 +168,6 @@ output "rds_endpoint" {
 output "rds_db_name" {
   value = module.base.rds_db_name
 }
+output "rds_port" {
+  value = module.base.rds_port
+}

@@ -75,6 +75,22 @@ resource "aws_iam_policy" "api_server_task_exec" {
         Effect   = "Allow"
         Resource = "*"
       },
+
+      # secret managerからの値取得
+      {
+        Action = ["secretsmanager:GetSecretValue"]
+        Effect = "Allow"
+        Resource = [
+          aws_secretsmanager_secret.api_server.arn,
+          var.rds_config.type == "aurora_mysql_serverless_v2" ? aws_rds_cluster.serverless_v2[0].master_user_secret[0].secret_arn : aws_db_instance.mysql_standalone[0].master_user_secret[0].secret_arn,
+        ]
+      },
+      # kms decrypt
+      {
+        Action   = ["kms:Decrypt"]
+        Effect   = "Allow"
+        Resource = aws_kms_key.main.arn
+      },
     ],
   })
 
@@ -156,32 +172,17 @@ resource "aws_iam_policy" "webfront_server_task_exec" {
     Version = "2012-10-17",
     Statement = [
       # とりあえず
-      # {
-      #   Action   = ["s3:GetObject", "s3:PutObject"]
-      #   Effect   = "Allow"
-      #   Resource = "*"
-      # },
+      {
+        Action   = ["s3:GetObject", "s3:PutObject"]
+        Effect   = "Allow"
+        Resource = "*"
+      },
       # # logを出力するために必要
       # {
       #   Action   = ["logs:CreateLogStream", "logs:PutLogEvents"]
       #   Effect   = "Allow"
       #   Resource = "*"
       # },
-      # secret managerからの値取得
-      {
-        Action = ["secretsmanager:GetSecretValue"]
-        Effect = "Allow"
-        Resource = [
-          aws_secretsmanager_secret.api_server.arn,
-          var.rds_config.type == "aurora_mysql_serverless_v2" ? aws_rds_cluster.serverless_v2[0].master_user_secret[0].secret_arn : aws_db_instance.mysql_standalone[0].master_user_secret[0].secret_arn,
-        ]
-      },
-      # kms decrypt
-      {
-        Action   = ["kms:Decrypt"]
-        Effect   = "Allow"
-        Resource = aws_kms_key.main.arn
-      },
     ],
   })
 

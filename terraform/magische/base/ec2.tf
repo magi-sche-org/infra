@@ -4,7 +4,8 @@ resource "aws_key_pair" "bastion" {
 }
 
 resource "aws_instance" "bastion" {
-  ami                         = data.aws_ami.bastion.id
+  # ami                         = data.aws_ami.bastion.id
+  ami                         = "ami-00247e9dc9591c233"
   instance_type               = "t2.micro"
   key_name                    = aws_key_pair.bastion.key_name
   subnet_id                   = var.api_ecs_config.subnet_ids[0]
@@ -18,15 +19,15 @@ resource "aws_instance" "bastion" {
   }
 }
 
-data "aws_ami" "bastion" {
-  most_recent = true
-  owners      = ["099720109477"]
-  filter {
-    name   = "name"
-    values = ["ubuntu/images/hvm-ssd/ubuntu-focal-22.04-amd64-server-*"]
-  }
-  filter {
-    name   = "virtualization-type"
-    values = ["hvm"]
-  }
-}
+# data "aws_ami" "bastion" {
+#   most_recent = true
+#   owners      = ["099720109477"]
+#   filter {
+#     name   = "name"
+#     values = ["ubuntu/images/hvm-ssd/ubuntu-focal-22.04-amd64-server-*"]
+#   }
+#   filter {
+#     name   = "virtualization-type"
+#     values = ["hvm"]
+#   }
+# }

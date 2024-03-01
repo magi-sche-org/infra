@@ -23,7 +23,7 @@ output "rds_admin_password_secret_arn" {
 }
 
 output "rds_endpoint" {
-  value = var.rds_config.type == "aurora_mysql_serverless_v2" ? aws_rds_cluster.serverless_v2[0].endpoint : aws_db_instance.mysql_standalone[0].endpoint
+  value = var.rds_config.type == "aurora_mysql_serverless_v2" ? aws_rds_cluster.serverless_v2[0].endpoint : aws_db_instance.mysql_standalone[0].address # aws_db_instanceのendpointはportを含んでしまう
 }
 output "rds_db_name" {
   value = var.rds_config.database_name

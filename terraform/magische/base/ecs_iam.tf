@@ -156,17 +156,29 @@ resource "aws_iam_policy" "webfront_server_task_exec" {
     Version = "2012-10-17",
     Statement = [
       # とりあえず
-      {
-        Action   = ["s3:GetObject", "s3:PutObject"]
-        Effect   = "Allow"
-        Resource = "*"
-      },
+      # {
+      #   Action   = ["s3:GetObject", "s3:PutObject"]
+      #   Effect   = "Allow"
+      #   Resource = "*"
+      # },
       # # logを出力するために必要
       # {
       #   Action   = ["logs:CreateLogStream", "logs:PutLogEvents"]
       #   Effect   = "Allow"
       #   Resource = "*"
       # },
+      # secret managerからの値取得
+      {
+        Action   = ["secretsmanager:GetSecretValue"]
+        Effect   = "Allow"
+        Resource = aws_secretsmanager_secret.api_server.arn
+      },
+      # kms decrypt
+      {
+        Action   = ["kms:Decrypt"]
+        Effect   = "Allow"
+        Resource = aws_kms_key.main.arn
+      },
     ],
   })
 

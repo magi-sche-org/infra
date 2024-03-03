@@ -211,83 +211,85 @@ resource "aws_security_group_rule" "vpc_endpoint_egress_ipv6" {
   ipv6_cidr_blocks  = ["::/0"]
 }
 
+# VPC endpointを割り当てるよりは，publicに置いてパブリックIPv4を使用した方が安かった
+# resource "aws_vpc_endpoint" "ecr_dkr" {
+#   vpc_id = aws_vpc.main.id
 
-resource "aws_vpc_endpoint" "ecr_dkr" {
-  vpc_id = aws_vpc.main.id
+#   service_name      = "com.amazonaws.ap-northeast-1.ecr.dkr"
+#   vpc_endpoint_type = "Interface"
+#   subnet_ids = [
+#     aws_subnet.private_1a.id,
+#     aws_subnet.private_1c.id,
+#     aws_subnet.private_1d.id
+#   ]
+#   private_dns_enabled = true
+#   security_group_ids  = [aws_security_group.vpc_endpoint.id]
 
-  service_name      = "com.amazonaws.ap-northeast-1.ecr.dkr"
-  vpc_endpoint_type = "Interface"
-  subnet_ids = [
-    aws_subnet.private_1a.id,
-    aws_subnet.private_1c.id,
-    aws_subnet.private_1d.id
-  ]
-  private_dns_enabled = true
-  security_group_ids  = [aws_security_group.vpc_endpoint.id]
+#   tags = {
+#     Name = "magische-ecr-dkr-endpoint"
+#   }
+# }
+# resource "aws_vpc_endpoint" "ecr_api" {
+#   vpc_id = aws_vpc.main.id
 
-  tags = {
-    Name = "magische-ecr-dkr-endpoint"
-  }
-}
-resource "aws_vpc_endpoint" "ecr_api" {
-  vpc_id = aws_vpc.main.id
+#   service_name      = "com.amazonaws.ap-northeast-1.ecr.api"
+#   vpc_endpoint_type = "Interface"
+#   subnet_ids = [
+#     aws_subnet.private_1a.id,
+#     aws_subnet.private_1c.id,
+#     aws_subnet.private_1d.id
+#   ]
+#   private_dns_enabled = true
+#   security_group_ids  = [aws_security_group.vpc_endpoint.id]
 
-  service_name      = "com.amazonaws.ap-northeast-1.ecr.api"
-  vpc_endpoint_type = "Interface"
-  subnet_ids = [
-    aws_subnet.private_1a.id,
-    aws_subnet.private_1c.id,
-    aws_subnet.private_1d.id
-  ]
-  private_dns_enabled = true
-  security_group_ids  = [aws_security_group.vpc_endpoint.id]
+#   tags = {
+#     Name = "magische-ecr-api-endpoint"
+#   }
+# }
 
-  tags = {
-    Name = "magische-ecr-api-endpoint"
-  }
-}
-resource "aws_vpc_endpoint" "s3" {
-  vpc_id = aws_vpc.main.id
+# これに関しては無料なので，必要に応じてONにしても良い
+# resource "aws_vpc_endpoint" "s3" {
+#   vpc_id = aws_vpc.main.id
 
-  service_name      = "com.amazonaws.ap-northeast-1.s3"
-  vpc_endpoint_type = "Gateway"
-  route_table_ids   = [aws_route_table.private.id]
+#   service_name      = "com.amazonaws.ap-northeast-1.s3"
+#   vpc_endpoint_type = "Gateway"
+#   route_table_ids   = [aws_route_table.private.id]
 
-  policy = jsonencode({
-    Version = "2012-10-17",
-    Statement = [
-      {
-        Action    = "*"
-        Effect    = "Allow"
-        Principal = "*"
-        Resource  = "*"
-      }
-    ]
-  })
+#   policy = jsonencode({
+#     Version = "2012-10-17",
+#     Statement = [
+#       {
+#         Action    = "*"
+#         Effect    = "Allow"
+#         Principal = "*"
+#         Resource  = "*"
+#       }
+#     ]
+#   })
 
-  tags = {
-    Name = "magische-s3-endpoint"
-  }
-}
+#   tags = {
+#     Name = "magische-s3-endpoint"
+#   }
+# }
 
-# cloudwatch logs endpoint
-resource "aws_vpc_endpoint" "cloudwatch_logs" {
-  vpc_id = aws_vpc.main.id
+# # cloudwatch logs endpoint
+# resource "aws_vpc_endpoint" "cloudwatch_logs" {
+#   vpc_id = aws_vpc.main.id
 
-  service_name      = "com.amazonaws.ap-northeast-1.logs"
-  vpc_endpoint_type = "Interface"
-  subnet_ids = [
-    aws_subnet.private_1a.id,
-    aws_subnet.private_1c.id,
-    aws_subnet.private_1d.id
-  ]
-  private_dns_enabled = true
-  security_group_ids  = [aws_security_group.vpc_endpoint.id]
+#   service_name      = "com.amazonaws.ap-northeast-1.logs"
+#   vpc_endpoint_type = "Interface"
+#   subnet_ids = [
+#     aws_subnet.private_1a.id,
+#     aws_subnet.private_1c.id,
+#     aws_subnet.private_1d.id
+#   ]
+#   private_dns_enabled = true
+#   security_group_ids  = [aws_security_group.vpc_endpoint.id]
 
-  tags = {
-    Name = "magische-cloudwatch-logs-endpoint"
-  }
-}
+#   tags = {
+#     Name = "magische-cloudwatch-logs-endpoint"
+#   }
+# }
 
 # ssm endpoint
 resource "aws_vpc_endpoint" "ssm" {
@@ -308,21 +310,21 @@ resource "aws_vpc_endpoint" "ssm" {
   }
 }
 
-# ses(smtp)
-resource "aws_vpc_endpoint" "ses" {
-  vpc_id = aws_vpc.main.id
+# # ses(smtp)
+# resource "aws_vpc_endpoint" "ses" {
+#   vpc_id = aws_vpc.main.id
 
-  service_name      = "com.amazonaws.ap-northeast-1.email-smtp"
-  vpc_endpoint_type = "Interface"
-  subnet_ids = [
-    aws_subnet.private_1a.id,
-    aws_subnet.private_1c.id,
-    aws_subnet.private_1d.id
-  ]
-  private_dns_enabled = true
-  security_group_ids  = [aws_security_group.vpc_endpoint.id]
+#   service_name      = "com.amazonaws.ap-northeast-1.email-smtp"
+#   vpc_endpoint_type = "Interface"
+#   subnet_ids = [
+#     aws_subnet.private_1a.id,
+#     aws_subnet.private_1c.id,
+#     aws_subnet.private_1d.id
+#   ]
+#   private_dns_enabled = true
+#   security_group_ids  = [aws_security_group.vpc_endpoint.id]
 
-  tags = {
-    Name = "magische-ses-endpoint"
-  }
-}
+#   tags = {
+#     Name = "magische-ses-endpoint"
+#   }
+# }

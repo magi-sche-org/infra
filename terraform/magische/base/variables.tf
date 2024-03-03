@@ -91,6 +91,7 @@ variable "api_ecs_config" {
     host_port        = number
     cpu_architecture = string
     subnet_ids       = list(string)
+    assign_public_ip = bool
     autoscaling = object({
       max_capacity              = number
       min_capacity              = number
@@ -117,6 +118,7 @@ variable "webfront_ecs_config" {
     host_port        = number
     cpu_architecture = string
     subnet_ids       = list(string)
+    assign_public_ip = bool
     autoscaling = object({
       max_capacity              = number
       min_capacity              = number

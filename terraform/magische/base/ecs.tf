@@ -19,7 +19,7 @@ resource "aws_ecs_service" "api" {
     security_groups = [
       aws_security_group.api_server.id,
     ]
-    assign_public_ip = true
+    assign_public_ip = false
   }
 
   capacity_provider_strategy {
@@ -46,6 +46,7 @@ resource "aws_ecs_service" "api" {
     ignore_changes = [
       desired_count,
       task_definition,
+      # network_configuration,
     ]
   }
   tags = {
@@ -55,14 +56,16 @@ resource "aws_ecs_service" "api" {
   }
 }
 
+# 実質ダミー
 resource "aws_ecs_task_definition" "api" {
   family                   = "magische-${var.env}-api"
   network_mode             = "awsvpc"
   requires_compatibilities = ["FARGATE"]
-  cpu                      = "256"
-  memory                   = "512"
+  cpu                      = 256
+  memory                   = 512
   execution_role_arn       = aws_iam_role.api_server_task_exec.arn
   task_role_arn            = aws_iam_role.api_server_task.arn
+  track_latest             = false
   runtime_platform {
     operating_system_family = "LINUX"
     cpu_architecture        = var.api_ecs_config.cpu_architecture
@@ -78,16 +81,9 @@ resource "aws_ecs_task_definition" "api" {
           protocol      = "tcp"
         },
       ]
-      # logConfiguration = {
-      #   logDriver = "awslogs"
-      #   options = {
-      #     "awslogs-group"         = "magische-${var.env}-api"
-      #     "awslogs-region"        = "ap-northeast-1"
-      #     "awslogs-stream-prefix" = "magische-${var.env}-api"
-      #   }
-      # }
     },
   ])
+
   tags = {
     Name    = "magische-${var.env}-api-server"
     Service = "api"
@@ -183,6 +179,7 @@ resource "aws_ecs_service" "webfront" {
   }
 }
 
+# 実質ダミー
 resource "aws_ecs_task_definition" "webfront" {
   family                   = "magische-${var.env}-webfront"
   network_mode             = "awsvpc"
@@ -191,6 +188,7 @@ resource "aws_ecs_task_definition" "webfront" {
   memory                   = "512"
   execution_role_arn       = aws_iam_role.webfront_server_task_exec.arn
   task_role_arn            = aws_iam_role.webfront_server_task.arn
+  track_latest             = false
   runtime_platform {
     operating_system_family = "LINUX"
     cpu_architecture        = var.webfront_ecs_config.cpu_architecture

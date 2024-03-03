@@ -88,6 +88,7 @@ module "base" {
     host_port        = 8080
     cpu_architecture = "ARM64"
     subnet_ids       = local.public_subnet_ids
+    assign_public_ip = false
     autoscaling = {
       max_capacity              = 4
       min_capacity              = 1
@@ -111,6 +112,7 @@ module "base" {
     host_port        = 3000
     cpu_architecture = "ARM64"
     subnet_ids       = local.public_subnet_ids
+    assign_public_ip = true
     autoscaling = {
       max_capacity              = 4
       min_capacity              = 1

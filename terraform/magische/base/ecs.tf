@@ -19,7 +19,7 @@ resource "aws_ecs_service" "api" {
     security_groups = [
       aws_security_group.api_server.id,
     ]
-    assign_public_ip = false
+    assign_public_ip = var.api_ecs_config.assign_public_ip
   }
 
   capacity_provider_strategy {
@@ -143,7 +143,7 @@ resource "aws_ecs_service" "webfront" {
     security_groups = [
       aws_security_group.webfront_server.id
     ]
-    assign_public_ip = false
+    assign_public_ip = var.webfront_ecs_config.assign_public_ip
   }
 
   capacity_provider_strategy {

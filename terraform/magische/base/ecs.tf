@@ -1,3 +1,21 @@
+output "ecs_capacity_provider_strategy" {
+  value = {
+    api = {
+      fargate_base        = var.api_ecs_config.capacity_provider.fargate_base
+      fargate_weight      = var.api_ecs_config.capacity_provider.fargate_weight
+      fargate_spot_base   = var.api_ecs_config.capacity_provider.fargate_spot_base
+      fargate_spot_weight = var.api_ecs_config.capacity_provider.fargate_spot_weight
+    }
+    webfront = {
+      fargate_base        = var.webfront_ecs_config.capacity_provider.fargate_base
+      fargate_weight      = var.webfront_ecs_config.capacity_provider.fargate_weight
+      fargate_spot_base   = var.webfront_ecs_config.capacity_provider.fargate_spot_base
+      fargate_spot_weight = var.webfront_ecs_config.capacity_provider.fargate_spot_weight
+    }
+  }
+}
+
+
 resource "aws_ecs_cluster" "main" {
   name = "magische-${var.env}"
 
@@ -58,19 +76,19 @@ resource "aws_ecs_service" "api" {
 
 # 実質ダミー
 resource "aws_ecs_task_definition" "api" {
-  family                   = "magische-${var.env}-api"
+  family                   = "magische-${var.env}-api" // app側で変更しない！
   network_mode             = "awsvpc"
   requires_compatibilities = ["FARGATE"]
-  cpu                      = 256
-  memory                   = 512
-  execution_role_arn       = aws_iam_role.api_server_task_exec.arn
-  task_role_arn            = aws_iam_role.api_server_task.arn
+  cpu                      = 256                                   // app側で変更OK!!
+  memory                   = 512                                   // app側で変更OK!!
+  execution_role_arn       = aws_iam_role.api_server_task_exec.arn // app側で変更しない！
+  task_role_arn            = aws_iam_role.api_server_task.arn      // app側で変更しない！
   track_latest             = false
-  runtime_platform {
+  runtime_platform { // app側で変更OK!!
     operating_system_family = "LINUX"
     cpu_architecture        = var.api_ecs_config.cpu_architecture
   }
-  container_definitions = jsonencode([
+  container_definitions = jsonencode([ // app側で変更OK!!
     {
       name  = "magische-${var.env}-api"
       image = "nginx"
@@ -83,6 +101,14 @@ resource "aws_ecs_task_definition" "api" {
       ]
     },
   ])
+
+  lifecycle {
+    ignore_changes = [
+      cpu,
+      memory,
+      runtime_platform,
+    ]
+  }
 
   tags = {
     Name    = "magische-${var.env}-api-server"
@@ -184,16 +210,16 @@ resource "aws_ecs_task_definition" "webfront" {
   family                   = "magische-${var.env}-webfront"
   network_mode             = "awsvpc"
   requires_compatibilities = ["FARGATE"]
-  cpu                      = "256"
-  memory                   = "512"
-  execution_role_arn       = aws_iam_role.webfront_server_task_exec.arn
-  task_role_arn            = aws_iam_role.webfront_server_task.arn
+  cpu                      = 256                                        // app側で変更OK!!
+  memory                   = 512                                        // app側で変更OK!!
+  execution_role_arn       = aws_iam_role.webfront_server_task_exec.arn // app側で変更しない！
+  task_role_arn            = aws_iam_role.webfront_server_task.arn      // app側で変更しない！
   track_latest             = false
-  runtime_platform {
+  runtime_platform { // app側で変更OK!!
     operating_system_family = "LINUX"
     cpu_architecture        = var.webfront_ecs_config.cpu_architecture
   }
-  container_definitions = jsonencode([
+  container_definitions = jsonencode([ // app側で変更OK!!
     {
       name  = "magische-${var.env}-webfront"
       image = "nginx"
@@ -214,6 +240,13 @@ resource "aws_ecs_task_definition" "webfront" {
       # }
     },
   ])
+  lifecycle {
+    ignore_changes = [
+      cpu,
+      memory,
+      runtime_platform,
+    ]
+  }
   tags = {
     Name    = "magische-${var.env}-webfront-server"
     Service = "webfront"

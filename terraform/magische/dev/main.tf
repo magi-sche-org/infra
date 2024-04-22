@@ -100,10 +100,10 @@ module "base" {
       memory_scale_in_cooldown  = 300
     }
     capacity_provider = {
-      fargate_base        = 1
-      fargate_weight      = 1
-      fargate_spot_base   = 0
-      fargate_spot_weight = 0
+      fargate_base        = 0
+      fargate_weight      = 0
+      fargate_spot_base   = 1
+      fargate_spot_weight = 1
     }
   }
   webfront_ecs_config = {
@@ -124,10 +124,10 @@ module "base" {
       memory_scale_in_cooldown  = 300
     }
     capacity_provider = {
-      fargate_base        = 1
-      fargate_weight      = 1
-      fargate_spot_base   = 0
-      fargate_spot_weight = 0
+      fargate_base        = 0
+      fargate_weight      = 0
+      fargate_spot_base   = 1
+      fargate_spot_weight = 1
     }
   }
 

@@ -37,7 +37,7 @@ resource "aws_iam_policy" "api_server_task" {
         Action = ["rds-db:connect"]
         Effect = "Allow"
         Resource = [
-          "arn:aws:rds-db:${locals.aws_region}:${locals.account_id}:dbuser:${locals.db_resource_id}/${locals.rds_admin_username}",
+          "arn:aws:rds-db:${local.aws_region}:${local.account_id}:dbuser:${local.db_resource_id}/${local.rds_admin_username}",
         ]
       },
     ],

@@ -83,10 +83,11 @@ module "base" {
   }
 
   api_ecs_config = {
-    desired_count    = 1
-    container_port   = 8080
-    host_port        = 8080
-    cpu_architecture = "ARM64"
+    desired_count  = 1
+    container_port = 8080
+    host_port      = 8080
+    # cpu_architecture = "ARM64"
+    cpu_architecture = "X86_64"
     subnet_ids       = local.public_subnet_ids
     assign_public_ip = true
     autoscaling = {
@@ -107,10 +108,11 @@ module "base" {
     }
   }
   webfront_ecs_config = {
-    desired_count    = 1
-    container_port   = 3000
-    host_port        = 3000
-    cpu_architecture = "ARM64"
+    desired_count  = 1
+    container_port = 3000
+    host_port      = 3000
+    # cpu_architecture = "ARM64"
+    cpu_architecture = "X86_64"
     subnet_ids       = local.public_subnet_ids
     assign_public_ip = true
     autoscaling = {

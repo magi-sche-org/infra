@@ -27,10 +27,18 @@ resource "aws_iam_policy" "api_server_task" {
     Version = "2012-10-17",
     Statement = [
       # とりあえず
+      # {
+      #   Action   = ["s3:GetObject", "s3:PutObject"]
+      #   Effect   = "Allow"
+      #   Resource = "*"
+      # },
+      # rds-db-connect
       {
-        Action   = ["s3:GetObject", "s3:PutObject"]
-        Effect   = "Allow"
-        Resource = "*"
+        Action = ["rds-db:connect"]
+        Effect = "Allow"
+        Resource = [
+          "arn:aws:rds-db:${locals.aws_region}:${locals.account_id}:dbuser:${locals.db_resource_id}/${locals.rds_admin_username}",
+        ]
       },
     ],
   })

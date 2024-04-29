@@ -99,8 +99,9 @@ resource "aws_db_instance" "mysql_standalone" {
 
   username = random_string.rds_admin_username.result
 
-  manage_master_user_password   = true
-  master_user_secret_kms_key_id = aws_kms_key.main.arn
+  manage_master_user_password         = true
+  master_user_secret_kms_key_id       = aws_kms_key.main.arn
+  iam_database_authentication_enabled = true
 
   instance_class = var.rds_config.mysql_standalone.instance_class
 
@@ -215,8 +216,9 @@ resource "aws_rds_cluster" "serverless_v2" {
   database_name   = var.rds_config.database_name
   master_username = random_string.rds_admin_username.result
   # master_password                 = var.rds_password
-  manage_master_user_password   = true
-  master_user_secret_kms_key_id = aws_kms_key.main.arn
+  manage_master_user_password         = true
+  master_user_secret_kms_key_id       = aws_kms_key.main.arn
+  iam_database_authentication_enabled = true
 
   // backtrackは使わない
   backtrack_window = 0

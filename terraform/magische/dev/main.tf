@@ -194,4 +194,3 @@ output "api_server_ssm_arn" {
 output "ecs_capacity_provider_strategy" {
   value = module.base.ecs_capacity_provider_strategy
 }
-

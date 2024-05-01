@@ -20,6 +20,25 @@ resource "aws_secretsmanager_secret_version" "api_server" {
   }
 }
 
+resource "aws_secretsmanager_secret" "db_api_user_password" {
+  name       = "magische-${var.env}-db-api-user-password"
+  kms_key_id = aws_kms_key.main.arn
+  tags = {
+    Name = "magische-${var.env}-db-api-user-password"
+  }
+}
+
+resource "aws_secretsmanager_secret_version" "db_api_user_password" {
+  secret_id     = aws_secretsmanager_secret.db_api_user_password.id
+  secret_string = "please-change-me"
+  lifecycle {
+    ignore_changes = [secret_string]
+  }
+}
+
 output "api_server_ssm_arn" {
   value = aws_secretsmanager_secret.api_server.arn
+}
+output "db_api_user_password_ssm_arn" {
+  value = aws_secretsmanager_secret.db_api_user_password.arn
 }

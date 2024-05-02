@@ -5,7 +5,7 @@ resource "aws_key_pair" "bastion" {
 
 resource "aws_instance" "bastion" {
   ami                         = data.aws_ami.bastion.id
-  instance_type               = "t2.nano"
+  instance_type               = "t4g.nano"
   key_name                    = aws_key_pair.bastion.key_name
   subnet_id                   = var.api_ecs_config.subnet_ids[0]
   associate_public_ip_address = true
@@ -23,7 +23,7 @@ data "aws_ami" "bastion" {
 
   filter {
     name   = "name"
-    values = ["ubuntu/images/hvm-ssd/ubuntu-focal-24.04-amd64-server-*"]
+    values = ["ubuntu/images/hvm-ssd/ubuntu-noble-24.04-arm64-server-*"]
   }
 
   filter {

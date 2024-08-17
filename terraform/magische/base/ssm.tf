@@ -10,5 +10,5 @@ resource "aws_ssm_parameter" "rds_api_username" {
 }
 
 output "db_api_username_ssm_arn" {
-  value = aws_ssm_parameter.db_api_username.arn
+  value = aws_ssm_parameter.rds_api_username.arn
 }
